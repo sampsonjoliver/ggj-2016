@@ -35,7 +35,7 @@ public class Converter : MonoBehaviour {
     
     private void PaintMesh(Color color) {
         // Paint the player to the correct color
-        MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        Renderer[] renderers = gameObject.transform.parent.GetComponentsInChildren<Renderer>();
         for (int i = 0; i < renderers.Length; i++) {
             renderers[i].material.color = color;
         }

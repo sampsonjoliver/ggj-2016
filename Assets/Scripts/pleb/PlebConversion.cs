@@ -35,13 +35,13 @@ public class PlebConversion : MonoBehaviour {
                     conversionFalloffElapsedTime += Time.deltaTime;
                     float tFrac = conversionFalloffElapsedTime / CONVERSION_FALLOFF_TIME;
                     conversionPerc = Mathf.Lerp(MAX_CONVERSION, MIN_CONVERSION, tFrac);
-                    Debug.Log("Current conversion = " + conversionPerc);
+                    //Debug.Log("Current conversion = " + conversionPerc);
                     
                     Color targetColor = conversionTarget.GetComponentInChildren<Converter>().color;
                     PaintMesh(Color.Lerp(targetColor, color, tFrac));
                     
                     if (conversionPerc <= 0f) {
-                        Debug.Log("Pleb conversion falling off.");
+                        //Debug.Log("Pleb conversion falling off.");
                         conversionTarget = null;
                     }
                 }
@@ -78,7 +78,7 @@ public class PlebConversion : MonoBehaviour {
     
     private void ConvertToNextTarget() {
         if (HasAvailableConversionTargets()) {
-            Debug.Log("Pleb acquiring new target " + GetNextAvailableConversionTarget());
+            //Debug.Log("Pleb acquiring new target " + GetNextAvailableConversionTarget());
             conversionTarget = GetNextAvailableConversionTarget();
             conversionFalloffElapsedTime = 0f;
             conversionPerc = MAX_CONVERSION;
@@ -89,7 +89,7 @@ public class PlebConversion : MonoBehaviour {
     
     private void PaintMesh(Color color) {
         // Paint the player to the correct color
-        MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
         for (int i = 0; i < renderers.Length; i++) {
             renderers[i].material.color = color;
         }

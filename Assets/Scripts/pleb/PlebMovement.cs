@@ -59,6 +59,11 @@ public class PlebMovement : MonoBehaviour {
             charController.Move(move);
             animator.SetBool(AnimatorProps.IS_FOLLOWING, true);
         }
+        else if(diff.sqrMagnitude < (stopRadius/2) * (stopRadius/2)) {
+            move.y = 0;
+            charController.Move(-move);
+            animator.SetBool(AnimatorProps.IS_FOLLOWING, true);
+        }
         else {
             animator.SetBool(AnimatorProps.IS_FOLLOWING, false);
         }
@@ -71,6 +76,9 @@ public class PlebMovement : MonoBehaviour {
         charController.enabled = !flag;
         animator.SetBool(AnimatorProps.IS_DOWN, flag);
         animator.enabled = !flag;
+        // change all rrigidbodies
+        Rigidbody[] rigidBodies = GetComponentsInChildren<Rigidbody>();
+        Debug.Log("Number of rigid bodies: " + rigidBodies.Length);
         rigidBody.isKinematic = !flag;
         isRagdoll = flag;
     }

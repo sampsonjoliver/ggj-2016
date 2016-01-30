@@ -51,7 +51,13 @@ public class CameraController : MonoBehaviour
 
     private void Zoom() {
         float requiredSize = FindRequiredSize();
-        cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, requiredSize, ref zoomSpeed, DAMPING_TIME);
+        
+        // calculate required camera depth
+        float distance = -requiredSize * cam.aspect * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        Vector3 pos = cam.transform.localPosition;
+        pos.z = Mathf.SmoothDamp(pos.z, distance, ref zoomSpeed, DAMPING_TIME);
+        cam.transform.localPosition = pos;
+        //cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, requiredSize, ref zoomSpeed, DAMPING_TIME);
     }
 
     private float FindRequiredSize() {
@@ -69,7 +75,7 @@ public class CameraController : MonoBehaviour
             }
         }
         
-        size += EDGE_BUFFER;
+        size *= 1 + EDGE_BUFFER;
 
         size = Mathf.Max(size, MIN_FRUSTUM_SIZE);
 
@@ -83,6 +89,9 @@ public class CameraController : MonoBehaviour
 
         transform.position = desiredPos;
 
-        cam.orthographicSize = FindRequiredSize();
+        Vector3 pos = cam.transform.localPosition;
+        pos.z = -FindRequiredSize() * cam.aspect * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        
+        cam.transform.localPosition = pos;
     }
 }
