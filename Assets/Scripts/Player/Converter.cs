@@ -3,15 +3,17 @@ using System.Collections;
 
 public class Converter : MonoBehaviour {
     private SphereCollider sphereCollider;
+    private Light pointLight;
     public float radius = 5f;
     public Color color = Color.red;
     
 	// Use this for initialization
 	void Start () {
-	    sphereCollider = GetComponent<SphereCollider>(); 
+	    sphereCollider = GetComponent<SphereCollider>();
+        pointLight = GetComponent<Light>(); 
         sphereCollider.radius = radius;
         
-        PaintMesh(color);
+        SetColor(color);
 	}
 	
 	// Update is called once per frame
@@ -33,11 +35,13 @@ public class Converter : MonoBehaviour {
         }
     }
     
-    private void PaintMesh(Color color) {
-        // Paint the player to the correct color
-        MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+    private void SetColor(Color color) {
+        // Paint the player mesh to the correct color
+        MeshRenderer[] renderers = gameObject.GetComponentsInParent<MeshRenderer>();
         for (int i = 0; i < renderers.Length; i++) {
             renderers[i].material.color = color;
         }
+        
+        pointLight.color = color;
     }
 }

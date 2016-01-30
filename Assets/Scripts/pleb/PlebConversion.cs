@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 
 public class PlebConversion : MonoBehaviour {
-    public static float MIN_CONVERSION = 0;
-    public static float MAX_CONVERSION = 100;
-    public float CONVERSION_FALLOFF_TIME = 4f;
+    public static float MinConversion = 0;
+    public static float MaxConversion = 100;
+    public float ConversionFalloffTime = 4f;
     public float conversionFalloffElapsedTime;
     public float conversionPerc;
     public Color color = Color.gray;
+    private Light pointLight;
     
-    public List<GameObject> availableConversionTargets = new List<GameObject>();
+    public List<GameObject> availableConversionTargets;
     public GameObject conversionTarget;
     
 	// Use this for initialization
 	void Start () {
 	   conversionFalloffElapsedTime = 0f;
 	   conversionPerc = 0f;
+       pointLight = GetComponent<Light>();
+       availableConversionTargets = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -33,8 +36,8 @@ public class PlebConversion : MonoBehaviour {
                 } else {
                     // We aren't in any influence sphere, so we need to do conversion falloff
                     conversionFalloffElapsedTime += Time.deltaTime;
-                    float tFrac = conversionFalloffElapsedTime / CONVERSION_FALLOFF_TIME;
-                    conversionPerc = Mathf.Lerp(MAX_CONVERSION, MIN_CONVERSION, tFrac);
+                    float tFrac = conversionFalloffElapsedTime / ConversionFalloffTime;
+                    conversionPerc = Mathf.Lerp(MaxConversion, MinConversion, tFrac);
                     Debug.Log("Current conversion = " + conversionPerc);
                     
                     Color targetColor = conversionTarget.GetComponentInChildren<Converter>().color;
@@ -81,7 +84,7 @@ public class PlebConversion : MonoBehaviour {
             Debug.Log("Pleb acquiring new target " + GetNextAvailableConversionTarget());
             conversionTarget = GetNextAvailableConversionTarget();
             conversionFalloffElapsedTime = 0f;
-            conversionPerc = MAX_CONVERSION;
+            conversionPerc = MaxConversion;
             
             PaintMesh(conversionTarget.GetComponentInChildren<Converter>().color);
         }
@@ -93,5 +96,7 @@ public class PlebConversion : MonoBehaviour {
         for (int i = 0; i < renderers.Length; i++) {
             renderers[i].material.color = color;
         }
+        
+        pointLight.color = color;
     }
 }

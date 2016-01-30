@@ -29,12 +29,14 @@ public class PlayerMovement : MonoBehaviour {
             // apply movement to fix y position
             if(transform.position.y - lockY > 0.001f)
                 move += Vector3.up * (lockY - transform.position.y) * 0.9f;
-            // move the character controller by the vector determined above
+                
+            // Move the character controller by the vector determined above
             charController.Move(move);
-            // face the direction we are moving
+            
+            // Make the character face the direction it's moving, but clamped in the y-axis
             move.y = 0;
-            if(move.sqrMagnitude > 0.01f)
-                transform.LookAt(transform.position + move.normalized);
+            // if(move.sqrMagnitude > 0.01f) not sure if need this, don't think do?
+            transform.LookAt(transform.position + move.normalized);
        }
 	}
     
