@@ -8,9 +8,14 @@ public class PlayerPush : MonoBehaviour {
     public GameObject spawnPrefab;
     public string inputKey;
     
+    public AudioSource pushAudioSource;
+    public AudioClip pushClip;
+    
+    private float originalPushPitch;
+    
 	// Use this for initialization
 	void Start () {
-        
+        originalPushPitch = pushAudioSource.pitch;
 	}
 	
 	// Update is called once per frame
@@ -26,6 +31,16 @@ public class PlayerPush : MonoBehaviour {
                 Debug.LogError("Spawned PushVolume does not have Push component!!!! :'(");
                 
             push.player = gameObject.transform;
+            
+            PlayAudio();
         }
+    }
+    
+    void PlayAudio() {
+        if(pushAudioSource.isPlaying)
+            pushAudioSource.Stop();
+        pushAudioSource.pitch = originalPushPitch + Random.Range(-0.1f, 0.1f);
+        pushAudioSource.clip = pushClip;
+        pushAudioSource.Play();
     }
 }

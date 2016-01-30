@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class ScoreController : MonoBehaviour {
-    public float totalAchievableScore;
+    public float winningScore;
     public float[] playerScores;
     public Slider[] playerScoreUIElements;
     public Image[] playerScoreUIFillImages;
@@ -15,12 +15,12 @@ public class ScoreController : MonoBehaviour {
 	}
     
     public void Init(int numPlebs, int numPlayers, Color[] playerColors) {
-        totalAchievableScore = numPlebs;
+        winningScore = Mathf.Floor(numPlebs / 2 + 1);
         playerScores = new float[numPlayers];
         this.playerColors = playerColors;
         
         for (int i = 0; i < playerScores.Length; ++i) {
-           playerScoreUIElements[i].maxValue = totalAchievableScore;
+           playerScoreUIElements[i].maxValue = winningScore;
            playerScores[i] = 0f;
        }
     }
@@ -29,7 +29,7 @@ public class ScoreController : MonoBehaviour {
 	void Update () {
 	   for (int i = 0; i < playerScores.Length; ++i) {
            playerScoreUIElements[i].value = playerScores[i];
-           playerScoreUIFillImages[i].color = Color.Lerp(Color.white, playerColors[i], totalAchievableScore / playerScores[i]);
+           playerScoreUIFillImages[i].color = Color.Lerp(Color.white, playerColors[i], winningScore / playerScores[i]);
        }
 	}
     

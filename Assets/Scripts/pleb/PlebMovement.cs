@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlebMovement : MonoBehaviour {
     
@@ -12,10 +12,17 @@ public class PlebMovement : MonoBehaviour {
     private CharacterController charController;
     private Animator animator;
     private Rigidbody rigidBody;
-    private Collider collider;
     
     private bool isRagdoll = false;
     private Vector3 ragdollImpulse = Vector3.zero;
+    
+    private float minRandTime = 0.5f;
+    private float maxRandTime = 0.8f;
+    private float elapsedTime;
+    private float audioTime = -1f;
+    
+    public ActorAudioHandler audioHandler;
+    public List<AudioClip> ouchClips;
     
 	// Use this for initialization
 	void Start () {
@@ -23,7 +30,6 @@ public class PlebMovement : MonoBehaviour {
 	   charController = GetComponent<CharacterController>();
        animator = GetComponent<Animator>();
        rigidBody = GetComponent<Rigidbody>();
-       collider = GetComponent<Collider>();
 	}
 	
     void FixedUpdate() {
@@ -37,8 +43,16 @@ public class PlebMovement : MonoBehaviour {
 	void Update () {
         if (isRagdoll) {
             // check if we have come to rest, if so, un-ragdoll
-            if (rigidBody.velocity.sqrMagnitude < 0.1f)
-                SetRagdoll(false); 
+            if (rigidBody.velocity.sqrMagnitude < 0.1f) {
+                SetRagdoll(false);
+                elapsedTime = 0;
+            }
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime > audioTime) {
+                audioHandler.PlaySpeechClip(GetOuchAudioClip());
+                audioTime = GetNextOuchTime();
+                elapsedTime = 0;
+            }
         }
         else {
             if (plebConversion.conversionTarget != null) {
@@ -76,9 +90,10 @@ public class PlebMovement : MonoBehaviour {
     
     public void SetRagdoll(bool flag) {
         charController.enabled = !flag;
-        //collider.enabled = !flag; // if ragdolling, disable the collider of the parent object
         if(!flag)
             animator.SetTrigger("return");
+        else
+            audioTime = GetNextOuchTime();
         animator.enabled = !flag;
         // change all rigidbodies
         Rigidbody[] rigidBodies = GetComponentsInChildren<Rigidbody>();
@@ -90,5 +105,13 @@ public class PlebMovement : MonoBehaviour {
     
     public void AddRagdollImpulse(Vector3 impulse) {
         ragdollImpulse += impulse;
+    }
+    
+    private float GetNextOuchTime() {
+        return Random.Range(minRandTime, maxRandTime);
+    }
+    
+    private AudioClip GetOuchAudioClip() {
+        return ouchClips[Random.Range(0, ouchClips.Count - 1)];
     }
 }

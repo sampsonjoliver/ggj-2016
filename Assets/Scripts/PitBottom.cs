@@ -15,7 +15,9 @@ public class PitBottom : MonoBehaviour {
 	}
     
     public void OnTriggerEnter(Collider other) {
+        Debug.Log("Woo");
         if (other.gameObject.tag == Tags.PLEB) {
+            Debug.Log("Woo2");
             if (other.GetComponent<PlebConversion>().conversionTarget != null)
                 gameController.HandleScoreIncrement(other.GetComponent<PlebConversion>().conversionTarget.transform.parent.gameObject);
                 

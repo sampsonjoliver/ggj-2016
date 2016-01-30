@@ -53,7 +53,10 @@ public class GameController : MonoBehaviour {
     private void FindPlebs() {
         plebCount = 0;
         foreach (GameObject pleb in GameObject.FindGameObjectsWithTag(Tags.PLEB))
+        {
             ++plebCount;
+            Debug.Log(pleb);
+        }
     }
 
     private void FindPlayers() {
