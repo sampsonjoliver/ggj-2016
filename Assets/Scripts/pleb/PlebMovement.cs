@@ -7,8 +7,10 @@ public class PlebMovement : MonoBehaviour {
     
     public float stopRadius = 3f;
     
+    public float lockY = 0.5f;
     private PlebConversion plebConversion;
     private CharacterController charController;
+    private Animator animator;
     private Rigidbody rigidBody;
     
     private bool isRagdoll = false;
@@ -18,6 +20,7 @@ public class PlebMovement : MonoBehaviour {
 	void Start () {
 	   plebConversion = GetComponent<PlebConversion>();
 	   charController = GetComponent<CharacterController>();
+       animator = GetComponent<Animator>();
        rigidBody = GetComponent<Rigidbody>();
 	}
 	
@@ -41,6 +44,7 @@ public class PlebMovement : MonoBehaviour {
             }
             else {
                 // wander
+                animator.SetBool(AnimatorProps.IS_FOLLOWING, false);
             }
         }
 	}
@@ -48,14 +52,25 @@ public class PlebMovement : MonoBehaviour {
     private void MoveToTarget(Vector3 targetPos) {
         Vector3 diff = (targetPos - this.transform.position);
         Vector3 move = diff.normalized * moveSpeed * Time.deltaTime;
-        if(diff.sqrMagnitude > stopRadius * stopRadius)
+        // apply movement to fix y position
+        if(transform.position.y - lockY > 0.001f)
+            move += Vector3.up * (lockY - transform.position.y) * 0.9f;
+        if(diff.sqrMagnitude > stopRadius * stopRadius) {
             charController.Move(move);
+            animator.SetBool(AnimatorProps.IS_FOLLOWING, true);
+        }
+        else {
+            animator.SetBool(AnimatorProps.IS_FOLLOWING, false);
+        }
+        move.y = 0;
         if(move.sqrMagnitude > 0.0001f)
             transform.LookAt(transform.position + move.normalized);
     }
     
     public void SetRagdoll(bool flag) {
         charController.enabled = !flag;
+        animator.SetBool(AnimatorProps.IS_DOWN, flag);
+        animator.enabled = !flag;
         rigidBody.isKinematic = !flag;
         isRagdoll = flag;
     }

@@ -15,7 +15,8 @@ public class PitCollide : MonoBehaviour {
     
     public void OnTriggerEnter(Collider other) {
         // ragdoll stuff that lands in pit
-       other.gameObject.GetComponent<CharacterController>().enabled = false;
+       if(other.gameObject.GetComponent<CharacterController>() != null)
+        other.gameObject.GetComponent<CharacterController>().enabled = false;
        Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
        body.isKinematic = false;
        body.constraints = RigidbodyConstraints.None;
