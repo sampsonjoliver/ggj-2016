@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour {
     public float moveSpeed = 5f;
     
     public float lockY = 1f;
+    private ActorAudioHandler audioHandler;
     
     [HideInInspector] public string horizontalInputAxis = "Horizontal";
     [HideInInspector] public string verticalInputAxis = "Vertical";
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	   charController = GetComponent<CharacterController>();
+       audioHandler = GetComponent<ActorAudioHandler>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,10 @@ public class PlayerMovement : MonoBehaviour {
             move.y = 0;
             // if(move.sqrMagnitude > 0.01f) not sure if need this, don't think do?
             transform.LookAt(transform.position + move.normalized);
+            
+            if (move.magnitude > 0.01f) {
+                audioHandler.PlayWalkClip();
+            }
        }
 	}
     
