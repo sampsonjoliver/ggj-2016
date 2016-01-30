@@ -9,14 +9,13 @@ public class PlebConversion : MonoBehaviour {
     public float conversionPerc;
     public Color color = Color.gray;
     
-    public List<GameObject> availableConversionTargets;
+    public List<GameObject> availableConversionTargets = new List<GameObject>();
     public GameObject conversionTarget;
     
 	// Use this for initialization
 	void Start () {
 	   conversionFalloffElapsedTime = 0f;
 	   conversionPerc = 0f;
-       availableConversionTargets = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
