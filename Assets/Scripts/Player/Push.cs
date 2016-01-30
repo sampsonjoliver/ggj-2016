@@ -47,7 +47,10 @@ public class Push : MonoBehaviour {
         if(otherRb != null && other.gameObject.name != "Player") {
             // calculate direction
             Vector3 pushVec = (other.transform.position - player.position).normalized * force;
-            otherRb.AddForce(pushVec, ForceMode.Impulse);
+            if(other.gameObject.tag == "Pleb")
+                other.GetComponent<PlebMovement>().AddRagdollImpulse(pushVec);
+            else
+                otherRb.AddForce(pushVec, ForceMode.Impulse);
         }
     }
 }
