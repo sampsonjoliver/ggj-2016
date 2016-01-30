@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System;
 
 public class GameController : MonoBehaviour {
+    public Color[] playerColors = {Color.red, Color.blue, Color.green, Color.yellow };
+    private const string HorizontalAxisPrefix = "Horizontal";
+    private const string VerticalAxisPrefix = "Vertical";
+    private const string FireKeyPrefix = "Fire";
     public List<Transform> playerSpawnPoints;
     public List<Transform> plebSpawnPoints;
     public int playerCount = 2;
@@ -14,10 +18,11 @@ public class GameController : MonoBehaviour {
     
     
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 	//    SpawnPlebs();
     //    SpawnPlayers();
-       SetCameraTargets();
+    InitPlayers();
+    //    SetCameraTargets();
 	}
 
     private void SetCameraTargets() {
@@ -32,6 +37,14 @@ public class GameController : MonoBehaviour {
     private void SpawnPlayers() {
         for (int i = 0; i < plebSpawnPoints.Count; ++i) {
             playerTargets.Add(Instantiate(playerPrefab, plebSpawnPoints[i].position, plebSpawnPoints[i].rotation) as GameObject);
+        }
+    }
+    
+    private void InitPlayers() {
+        for (int i = 0; i < playerTargets.Count; ++i) {
+            playerTargets[i].GetComponent<PlayerMovement>().setInputAxes(HorizontalAxisPrefix + (i+1), VerticalAxisPrefix + (i+1));
+            playerTargets[i].GetComponentInChildren<Converter>().color = playerColors[i];
+            playerTargets[i].GetComponent<PlayerPush>().inputKey = FireKeyPrefix + (i+1);
         }
     }
 

@@ -12,4 +12,9 @@ public class PlebHealth : MonoBehaviour {
 	void Update () {
 	
 	}
+    
+    public void OnDeath() {
+        // todo play animation and sound for fixed duration
+        // then destroy gameobject and increment player score
+    }
 }
