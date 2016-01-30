@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour {
     public float moveSpeed = 5f;
     
     public float lockY = 1f;
+    private ActorAudioHandler audioHandler;
     
     [HideInInspector] public string horizontalInputAxis = "Horizontal";
     [HideInInspector] public string verticalInputAxis = "Vertical";
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 	   charController = GetComponent<CharacterController>();
        animator = GetComponent<Animator>();
+       audioHandler = GetComponent<ActorAudioHandler>();
 	}
 	
 	// Update is called once per frame
@@ -42,7 +44,9 @@ public class PlayerMovement : MonoBehaviour {
             
             // change to walking if we moved much this frame
             animator.SetBool(AnimatorProps.IS_WALKING, move.sqrMagnitude > 0.001f);
-                
+            if (move.magnitude > 0.01f) {
+                audioHandler.PlayWalkClip();
+            }
        }
 	}
     

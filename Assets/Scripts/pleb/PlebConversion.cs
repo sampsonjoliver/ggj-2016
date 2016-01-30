@@ -12,6 +12,7 @@ public class PlebConversion : MonoBehaviour {
     
     public List<GameObject> availableConversionTargets;
     public GameObject conversionTarget;
+    private ActorAudioHandler audioHandler;
     
 	// Use this for initialization
 	void Start () {
@@ -19,6 +20,7 @@ public class PlebConversion : MonoBehaviour {
 	   conversionPerc = 0f;
        pointLight = GetComponentInChildren<Light>();
        availableConversionTargets = new List<GameObject>();
+       audioHandler = GetComponent<ActorAudioHandler>();
 	}
 	
 	// Update is called once per frame
@@ -87,6 +89,7 @@ public class PlebConversion : MonoBehaviour {
             conversionPerc = MaxConversion;
             
             SetColor(conversionTarget.GetComponentInChildren<Converter>().color);
+            PlayConvertAudioClip();
         }
     }
     
@@ -98,5 +101,9 @@ public class PlebConversion : MonoBehaviour {
         }
         
         pointLight.color = color;
+    }
+    
+    private void PlayConvertAudioClip() {
+        audioHandler.PlayConversionClip();
     }
 }

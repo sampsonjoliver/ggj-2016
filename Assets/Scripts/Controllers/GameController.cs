@@ -15,15 +15,31 @@ public class GameController : MonoBehaviour {
     public GameObject plebPrefab;
     [HideInInspector] public List<GameObject> playerTargets;
     public CameraController cameraController;
-    
+    private ScoreController scoreController;
     
 	// Use this for initialization
 	void Awake () {
 	//    SpawnPlebs();
+        FindPlebs();
         FindPlayers();
         InitPlayers();
         SetCameraTargets();
+        
+        SetupScoreController();
 	}
+
+    private void SetupScoreController() {
+        scoreController = GetComponent<ScoreController>();
+        scoreController.Init(plebCount, playerTargets.Count, playerColors);
+    }
+
+    public void HandleScoreIncrement(GameObject player) {
+        scoreController.IncrementScore(GetPlayerNumber(player));
+    }
+    
+    public int GetPlayerNumber(GameObject player) {
+        return playerTargets.IndexOf(player);
+    }
 
     private void SetCameraTargets() {
         List<Transform> camTargets = new List<Transform>(playerTargets.Count);
@@ -32,6 +48,12 @@ public class GameController : MonoBehaviour {
             camTargets.Add(target.transform);
         }
         cameraController.cameraTargets = camTargets;
+    }
+
+    private void FindPlebs() {
+        plebCount = 0;
+        foreach (GameObject pleb in GameObject.FindGameObjectsWithTag(Tags.PLEB))
+            ++plebCount;
     }
 
     private void FindPlayers() {
