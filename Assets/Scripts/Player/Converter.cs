@@ -10,7 +10,7 @@ public class Converter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    sphereCollider = GetComponent<SphereCollider>();
-        pointLight = GetComponent<Light>(); 
+        pointLight = GetComponentInChildren<Light>(); 
         sphereCollider.radius = radius;
         
         SetColor(color);

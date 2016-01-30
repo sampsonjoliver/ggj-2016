@@ -13,16 +13,16 @@ public class GameController : MonoBehaviour {
     public int plebCount = 100;
     public GameObject playerPrefab;
     public GameObject plebPrefab;
-    public List<GameObject> playerTargets;
+    [HideInInspector] public List<GameObject> playerTargets;
     public CameraController cameraController;
     
     
 	// Use this for initialization
 	void Awake () {
 	//    SpawnPlebs();
-    //    SpawnPlayers();
-    InitPlayers();
-    //    SetCameraTargets();
+        FindPlayers();
+        InitPlayers();
+        SetCameraTargets();
 	}
 
     private void SetCameraTargets() {
@@ -34,10 +34,8 @@ public class GameController : MonoBehaviour {
         cameraController.cameraTargets = camTargets;
     }
 
-    private void SpawnPlayers() {
-        for (int i = 0; i < plebSpawnPoints.Count; ++i) {
-            playerTargets.Add(Instantiate(playerPrefab, plebSpawnPoints[i].position, plebSpawnPoints[i].rotation) as GameObject);
-        }
+    private void FindPlayers() {
+        playerTargets = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.PLAYER));
     }
     
     private void InitPlayers() {
@@ -45,6 +43,7 @@ public class GameController : MonoBehaviour {
             playerTargets[i].GetComponent<PlayerMovement>().setInputAxes(HorizontalAxisPrefix + (i+1), VerticalAxisPrefix + (i+1));
             playerTargets[i].GetComponentInChildren<Converter>().color = playerColors[i];
             playerTargets[i].GetComponent<PlayerPush>().inputKey = FireKeyPrefix + (i+1);
+            Debug.Log(playerTargets[i].GetComponent<PlayerPush>().inputKey);
         }
     }
 

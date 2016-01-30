@@ -76,10 +76,11 @@ public class PlebMovement : MonoBehaviour {
         charController.enabled = !flag;
         animator.SetBool(AnimatorProps.IS_DOWN, flag);
         animator.enabled = !flag;
-        // change all rrigidbodies
+        // change all rigidbodies
         Rigidbody[] rigidBodies = GetComponentsInChildren<Rigidbody>();
-        Debug.Log("Number of rigid bodies: " + rigidBodies.Length);
-        rigidBody.isKinematic = !flag;
+        foreach(Rigidbody body in rigidBodies) {
+            body.isKinematic = !flag;
+        }
         isRagdoll = flag;
     }
     

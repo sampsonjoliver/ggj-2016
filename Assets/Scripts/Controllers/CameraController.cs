@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
     public float DAMPING_TIME = 0.2f;
     public float EDGE_BUFFER = 4f;           
-    public float MIN_FRUSTUM_SIZE = 8f;
+    public float MinCamDepth = 8f;
        
     [HideInInspector] public List<Transform> cameraTargets; 
 
@@ -51,9 +51,11 @@ public class CameraController : MonoBehaviour
 
     private void Zoom() {
         float requiredSize = FindRequiredSize();
-        
+        requiredSize *= 1 + EDGE_BUFFER;
         // calculate required camera depth
-        float distance = -requiredSize * cam.aspect * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float distance = requiredSize * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        //distance *= 1 + EDGE_BUFFER;
+        distance = -Mathf.Max(Mathf.Abs(distance), Mathf.Abs(MinCamDepth));
         Vector3 pos = cam.transform.localPosition;
         pos.z = Mathf.SmoothDamp(pos.z, distance, ref zoomSpeed, DAMPING_TIME);
         cam.transform.localPosition = pos;
@@ -70,16 +72,12 @@ public class CameraController : MonoBehaviour
                 Vector3 targetLocalPos = cameraTarget.position;
                 Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
 
-                size = Mathf.Max (size, Mathf.Abs(desiredPosToTarget.y));
-                size = Mathf.Max (size, Mathf.Abs(desiredPosToTarget.x) / cam.aspect);
+                size = Mathf.Max (size, Mathf.Abs(desiredPosToTarget.x)); // size horizontal
+                size = Mathf.Max (size, Mathf.Abs(desiredPosToTarget.z)); // size vertical
             }
         }
         
-        size *= 1 + EDGE_BUFFER;
-
-        size = Mathf.Max(size, MIN_FRUSTUM_SIZE);
-
-        return size;
+        return size * 2;
     }
 
 
