@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DAMPING_TIME: 0.75
-  EDGE_BUFFER: 1
+  EDGE_BUFFER: 0.5
   MinCamDepth: 8
   cameraTargets: []
 --- !u!114 &11455772

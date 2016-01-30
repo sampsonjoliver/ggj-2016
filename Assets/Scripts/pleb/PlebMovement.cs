@@ -12,6 +12,7 @@ public class PlebMovement : MonoBehaviour {
     private CharacterController charController;
     private Animator animator;
     private Rigidbody rigidBody;
+    private Collider collider;
     
     private bool isRagdoll = false;
     private Vector3 ragdollImpulse = Vector3.zero;
@@ -22,6 +23,7 @@ public class PlebMovement : MonoBehaviour {
 	   charController = GetComponent<CharacterController>();
        animator = GetComponent<Animator>();
        rigidBody = GetComponent<Rigidbody>();
+       collider = GetComponent<Collider>();
 	}
 	
     void FixedUpdate() {
@@ -68,13 +70,15 @@ public class PlebMovement : MonoBehaviour {
             animator.SetBool(AnimatorProps.IS_FOLLOWING, false);
         }
         move.y = 0;
-        if(move.sqrMagnitude > 0.0001f)
-            transform.LookAt(transform.position + move.normalized);
+        //if(move.sqrMagnitude > 0.0001f)
+        transform.LookAt(transform.position + move.normalized);
     }
     
     public void SetRagdoll(bool flag) {
         charController.enabled = !flag;
-        animator.SetBool(AnimatorProps.IS_DOWN, flag);
+        //collider.enabled = !flag; // if ragdolling, disable the collider of the parent object
+        if(!flag)
+            animator.SetTrigger("return");
         animator.enabled = !flag;
         // change all rigidbodies
         Rigidbody[] rigidBodies = GetComponentsInChildren<Rigidbody>();

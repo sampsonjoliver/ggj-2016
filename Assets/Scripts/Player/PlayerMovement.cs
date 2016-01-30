@@ -10,9 +10,11 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector] public string verticalInputAxis = "Vertical";
     
     private CharacterController charController;
+    private Animator animator;
 	// Use this for initialization
 	void Start () {
 	   charController = GetComponent<CharacterController>();
+       animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,10 @@ public class PlayerMovement : MonoBehaviour {
             move.y = 0;
             // if(move.sqrMagnitude > 0.01f) not sure if need this, don't think do?
             transform.LookAt(transform.position + move.normalized);
+            
+            // change to walking if we moved much this frame
+            animator.SetBool(AnimatorProps.IS_WALKING, move.sqrMagnitude > 0.001f);
+                
        }
 	}
     
