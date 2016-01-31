@@ -1,0 +1,300 @@
+fileFormatVersion: 2
+guid: 53bb52a154fa74741a9c2818c05aa65c
+timeCreated: 1454131932
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: charactor
+    100004: joint1
+    100006: joint10
+    100008: joint11
+    100010: joint12
+    100012: joint13
+    100014: joint14
+    100016: joint2
+    100018: joint3
+    100020: joint4
+    100022: joint5
+    100024: joint6
+    100026: joint7
+    100028: joint8
+    100030: joint9
+    100032: character_mesh
+    400000: //RootNode
+    400002: charactor
+    400004: joint1
+    400006: joint10
+    400008: joint11
+    400010: joint12
+    400012: joint13
+    400014: joint14
+    400016: joint2
+    400018: joint3
+    400020: joint4
+    400022: joint5
+    400024: joint6
+    400026: joint7
+    400028: joint8
+    400030: joint9
+    400032: character_mesh
+    4300000: charactor
+    4300002: character_mesh
+    9500000: //RootNode
+    13700000: charactor
+    13700002: character_mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: '
+
+      Imported file ''character'' conversion failed: Required human bone ''LeftUpperLeg''
+      not found
+
+
+'
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: joint1
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint2
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint4
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint5
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint6
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint11
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint7
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint12
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint8
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint13
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint9
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint14
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint10
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: character(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: charactor
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint2
+      position: {x: -0.5073673, y: 1.1265817e-16, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint3
+      position: {x: -0.4724858, y: 1.04912925e-16, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint4
+      position: {x: -0.4090649, y: 9.138576e-17, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint5
+      position: {x: -0.13001287, y: 2.8313545e-17, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint6
+      position: {x: -0.14269705, y: 3.168511e-17, z: 0}
+      rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint7
+      position: {x: -0.044002805, y: 0.073099166, z: 0}
+      rotation: {x: 0.81400794, y: -0.5808537, z: -0.0000000043276973, w: 0.0000000060648317}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint8
+      position: {x: -0.10391468, y: 3.9968027e-17, z: 5.293956e-25}
+      rotation: {x: 0.000000002330608, y: 0.0000000041185166, z: 0.19061379, w: 0.98166513}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint9
+      position: {x: -0.26402262, y: 1.00637804e-16, z: -0.0000000033726502}
+      rotation: {x: 3.3620082e-10, y: 1.8409954e-10, z: 0.014166085, w: 0.9998997}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint10
+      position: {x: -0.31193674, y: -1.1217484e-16, z: -0.0000000041627835}
+      rotation: {x: 0.36670473, y: 0.93033737, z: 0.000000006490216, w: 0.000000002558204}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint11
+      position: {x: -0.044001985, y: -0.073099196, z: 0}
+      rotation: {x: 0.00000000749593, y: -0.000000010504498, z: -0.81400025, w: 0.5808645}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint12
+      position: {x: 0.1039162, y: -0.000002762171, z: 7.129044e-14}
+      rotation: {x: 0.000000020246258, y: 0.00000001535666, z: 0.19060065, w: 0.9816677}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint13
+      position: {x: 0.26402125, y: -0.00000013819603, z: 0.0000000033726422}
+      rotation: {x: 0.000000036876365, y: -0.0000000012815747, z: 0.014166631, w: 0.9998996}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint14
+      position: {x: 0.31193665, y: -0.000000097474036, z: 0.0000000022432127}
+      rotation: {x: 0.36670473, y: 0.93033737, z: -0.000000065698245, w: 0.000000026769623}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: joint1
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

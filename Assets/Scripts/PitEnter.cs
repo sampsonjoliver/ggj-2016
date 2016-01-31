@@ -20,6 +20,7 @@ public class PitEnter : MonoBehaviour {
             // Enable the ragdoll glory and other death logic
             if(other.gameObject.GetComponent<IMortal>() != null) {
                 other.gameObject.GetComponent<IMortal>().OnImminentDeath();
+                other.gameObject.GetComponent<ActorMovement>().AddRagdollImpulse(Vector3.down * 20);
             }
         }
     }
