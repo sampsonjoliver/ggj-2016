@@ -17,12 +17,20 @@ public class Push : MonoBehaviour {
     
     public Transform player;
     
+    public ParticleSystem waveParticles;
+    public ParticleSystem dustParticles;
+    
 	// Use this for initialization
 	void Start () {
 	   elapsedTime = 0f;
        
        width = startWidth;
        force = startForce;
+       
+       Color playerColor = player.GetComponentInChildren<Converter>().color;
+       waveParticles.startColor = Color.Lerp(playerColor, Color.white, 0.75f);
+       dustParticles.startColor = Color.Lerp(playerColor, Color.white, 0.75f);
+       GetComponentInChildren<Light>().color = playerColor;
 	}
 	
 	// Update is called once per frame
@@ -32,7 +40,12 @@ public class Push : MonoBehaviour {
        width = Mathf.Lerp(startWidth, endWidth, elapsedTime / time);
        force = Mathf.Lerp(startForce, endForce, elapsedTime / time);
        if(elapsedTime >= time) {
+           if(waveParticles != null)
+            waveParticles.Stop();
+           if(dustParticles != null)
+            dustParticles.Stop();
            Destroy(gameObject);
+           Destroy(transform.parent.gameObject, time * 2f);
        }
 	   // move block forward
        transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -44,10 +57,10 @@ public class Push : MonoBehaviour {
     // When colliding with rigid body, push it!
     public void OnTriggerEnter(Collider other) {
         Rigidbody otherRb = other.GetComponent<Rigidbody>();
-        if(otherRb != null && other.gameObject.name != "Player") {
+        if(otherRb != null) {
             // calculate direction
             Vector3 pushVec = (other.transform.position - player.position).normalized * force;
-            if(other.gameObject.tag == "Pleb")
+            if(other.gameObject.tag == Tags.PLEB)
                 other.GetComponent<PlebMovement>().AddRagdollImpulse(pushVec);
             else
                 otherRb.AddForce(pushVec, ForceMode.Impulse);

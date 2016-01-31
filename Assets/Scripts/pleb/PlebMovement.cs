@@ -6,6 +6,7 @@ public class PlebMovement : MonoBehaviour {
     public float moveSpeed = 5f;
     
     public float stopRadius = 3f;
+    public float repelRadius = 2f;
     
     public float lockY = 0.5f;
     private PlebConversion plebConversion;
@@ -75,7 +76,7 @@ public class PlebMovement : MonoBehaviour {
             charController.Move(move);
             animator.SetBool(AnimatorProps.IS_FOLLOWING, true);
         }
-        else if(diff.sqrMagnitude < (stopRadius/2) * (stopRadius/2)) {
+        else if(diff.sqrMagnitude < repelRadius * repelRadius) {
             move.y = 0;
             charController.Move(-move);
             animator.SetBool(AnimatorProps.IS_FOLLOWING, true);

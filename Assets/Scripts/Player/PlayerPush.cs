@@ -23,8 +23,7 @@ public class PlayerPush : MonoBehaviour {
         if (Input.GetButtonDown(inputKey)) {
             // spawn a push volume
             GameObject pushGo = (GameObject)Instantiate(spawnPrefab, transform.position + (transform.rotation * spawnPosition), transform.rotation);
-            pushGo.transform.parent = gameObject.transform;
-            Push push = pushGo.GetComponent<Push>();
+            Push push = pushGo.GetComponentInChildren<Push>();
             
             // useless check, will always be there as long as correct prefab used
             if (push == null)  
