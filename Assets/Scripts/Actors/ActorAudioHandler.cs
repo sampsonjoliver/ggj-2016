@@ -4,12 +4,12 @@ using System.Collections;
 public class ActorAudioHandler : MonoBehaviour {
     public AudioSource walkAudioSource;
     public AudioSource talkAudioSource;
-    public AudioClip walkClip;
+    public AudioClip[] walkClips;
     public AudioClip[] speechClips;
     public AudioClip[] conversionClips;
     public float MinTalkWaitDuration = 10f; 
     public float MaxTalkWaitDuration = 60f; 
-    public static float CommonPitchRange = 0.2f;
+    public static float CommonPitchRange = 0.1f;
 
     private float originalWalkPitch, originalTalkPitch;
     private float elapsedDurationBetweenTalk;
@@ -42,11 +42,15 @@ public class ActorAudioHandler : MonoBehaviour {
             return;
         }
         
-        walkAudioSource.clip = walkClip;
+        walkAudioSource.clip = GetWalkClip();
         walkAudioSource.pitch = RandomisePitch(originalWalkPitch);
         walkAudioSource.Play();
     }
-    
+
+    private AudioClip GetWalkClip() {
+        return walkClips[Random.Range(0, walkClips.Length - 1)];        
+    }
+
     public void PlaySpeechClip(AudioClip clip) {
         if (talkAudioSource.isPlaying) {
             talkAudioSource.Stop();

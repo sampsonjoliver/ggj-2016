@@ -9,7 +9,7 @@ public class PlayerPush : MonoBehaviour {
     public string inputKey;
     
     public AudioSource pushAudioSource;
-    public AudioClip pushClip;
+    public AudioClip[] pushClips;
     
     private float originalPushPitch;
     
@@ -40,7 +40,11 @@ public class PlayerPush : MonoBehaviour {
         if(pushAudioSource.isPlaying)
             pushAudioSource.Stop();
         pushAudioSource.pitch = originalPushPitch + Random.Range(-0.1f, 0.1f);
-        pushAudioSource.clip = pushClip;
+        pushAudioSource.clip = GetPushClip();
         pushAudioSource.Play();
+    }
+    
+    private AudioClip GetPushClip() {
+        return pushClips[Random.Range(0, pushClips.Length - 1)];
     }
 }

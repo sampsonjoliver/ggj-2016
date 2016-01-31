@@ -896,14 +896,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkAudioSource: {fileID: 8244492}
   talkAudioSource: {fileID: 8202342}
-  walkClip: {fileID: 8300000, guid: 2c63c93d9d7578f4c99f2204083e4105, type: 3}
+  walkClips:
+  - {fileID: 8300000, guid: a02c8859b93adce42a06be01018faec7, type: 3}
+  - {fileID: 8300000, guid: 42ec99f771cd1964aa93c74784d6181f, type: 3}
+  - {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
   speechClips:
-  - {fileID: 8300000, guid: de2f3a7e139e95340901343ffb467a49, type: 3}
-  - {fileID: 8300000, guid: be0b36f77f8bcbd4cb6817a6a2aa67f8, type: 3}
-  - {fileID: 8300000, guid: 9e8ce758130685e4eb8043649657baf2, type: 3}
-  conversionClips:
-  - {fileID: 8300000, guid: bdd066bb8d0b92e43829a5f69b5ea924, type: 3}
-  - {fileID: 8300000, guid: 3cc248382e9d1534daaaff455e355087, type: 3}
+  - {fileID: 8300000, guid: 5bacc7b51cfb344448b2aae3e80273ab, type: 3}
+  - {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
+  conversionClips: []
   MinTalkWaitDuration: 10
   MaxTalkWaitDuration: 60
 --- !u!114 &11403498
@@ -917,7 +917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d09a20a16dca04e8f34262421154d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathClip: {fileID: 8300000, guid: e8116f5d9cbfd554792b9ec9fb461b9d, type: 3}
+  deathClips:
+  - {fileID: 8300000, guid: 6fb7c095857f1e64a95630d1520c4479, type: 3}
+  - {fileID: 8300000, guid: 9c5cd218e132838439c94719243b79e1, type: 3}
+  - {fileID: 8300000, guid: 2f59a85d98e132d4e858849948a966ba, type: 3}
+  - {fileID: 8300000, guid: 25c41f4dd51afaf4dbb44bbd63b753f6, type: 3}
   RespawnTime: 5
 --- !u!114 &11453796
 MonoBehaviour:
@@ -934,7 +938,9 @@ MonoBehaviour:
   spawnPrefab: {fileID: 123176, guid: ce543af0e92b6804a9c341180fbbf422, type: 2}
   inputKey: 
   pushAudioSource: {fileID: 8243790}
-  pushClip: {fileID: 8300000, guid: 7e6ded782b5bd6445950089acd55f798, type: 3}
+  pushClips:
+  - {fileID: 8300000, guid: f193bfc4e843f364a9dc88ca9b5d58dc, type: 3}
+  - {fileID: 8300000, guid: 4ed9e25b8a4ce6f43aad6848af048991, type: 3}
 --- !u!114 &11466908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,6 +1520,26 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: walkClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pushClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speechClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Center.x
       value: 0
       objectReference: {fileID: 0}
@@ -1537,6 +1563,42 @@ Prefab:
       propertyPath: m_Height
       value: 1.75
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6fb7c095857f1e64a95630d1520c4479, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c5cd218e132838439c94719243b79e1, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f59a85d98e132d4e858849948a966ba, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 25c41f4dd51afaf4dbb44bbd63b753f6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speechClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bacc7b51cfb344448b2aae3e80273ab, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speechClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a02c8859b93adce42a06be01018faec7, type: 3}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 42ec99f771cd1964aa93c74784d6181f, type: 3}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 183352}

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlebHealth : IMortal {
     private ActorAudioHandler audioHandler;
-    public AudioClip deathClip;
+    public AudioClip[] deathClips;
     
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,11 @@ public class PlebHealth : IMortal {
         GetComponent<PlebMovement>().SetRagdoll(true);
         
         // Play death sound
-        audioHandler.PlaySpeechClip(deathClip);
+        audioHandler.PlaySpeechClip(GetDeathClip());
+    }
+    
+    private AudioClip GetDeathClip() {
+        return deathClips[Random.Range(0, deathClips.Length - 1)];  
     }
     
     public override void OnDeath() {

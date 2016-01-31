@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
 public class PlayerMortality : IMortal {
     private Vector3 spawnPosition;
     private ActorAudioHandler audioHandler;
-    public AudioClip deathClip;
+    public AudioClip[] deathClips;
     private bool isDead;
     private float elapsedDeathTime;
     public float RespawnTime = 5f;
@@ -45,7 +44,7 @@ public class PlayerMortality : IMortal {
         Debug.Log("On Player Imminent Death");
         
         // Play death sound
-        audioHandler.PlaySpeechClip(deathClip);
+        audioHandler.PlaySpeechClip(GetDeathClip());
         SetControlsEnabled(false);
     }
 
@@ -53,5 +52,9 @@ public class PlayerMortality : IMortal {
         GetComponent<PlayerPush>().enabled = isEnabled;
         GetComponentInChildren<Converter>().enabled = isEnabled;
         GetComponent<PlayerMovement>().SetRagdoll(!isEnabled);
+    }
+    
+    private AudioClip GetDeathClip() {
+        return deathClips[Random.Range(0, deathClips.Length - 1)];  
     }
 }
