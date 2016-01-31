@@ -304,7 +304,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134998}
   m_LocalRotation: {x: 0, y: 0.9147499, z: 0, w: 0.4040206}
-  m_LocalPosition: {x: 0.29, y: 0.5, z: 1.67}
+  m_LocalPosition: {x: -0.99, y: 0.5, z: 5.44}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 469164}
@@ -801,9 +801,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42ec99f771cd1964aa93c74784d6181f, type: 3}
   - {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
   speechClips:
-  - {fileID: 8300000, guid: 5bacc7b51cfb344448b2aae3e80273ab, type: 3}
-  - {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
-  - {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
+  - {fileID: 8300000, guid: 378e467ff39ce3b499346f34d34dae10, type: 3}
+  - {fileID: 8300000, guid: 4ad2f5234745fd64680c570fed32e375, type: 3}
+  - {fileID: 8300000, guid: 198787198e07fb4488dbee113066e340, type: 3}
   conversionClips:
   - {fileID: 8300000, guid: 1f0bacbf10957704c9113963e264e126, type: 3}
   - {fileID: 8300000, guid: db6ee6003129ca84cba5e51edb9550ca, type: 3}
@@ -812,8 +812,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4cc8c905cebd5ed4e9ebfde879658d43, type: 3}
   - {fileID: 8300000, guid: b48d1f4d7962cc84ebe090c665fec0b2, type: 3}
   - {fileID: 8300000, guid: b3092cfc6cb7f80408db8f9223b7ad7f, type: 3}
-  MinTalkWaitDuration: 10
-  MaxTalkWaitDuration: 60
+  MinTalkWaitDuration: 5
+  MaxTalkWaitDuration: 15
 --- !u!114 &11479266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1038,7 +1038,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.29947996, y: -0.002121061, z: 0.00000011175871}
+  m_ConnectedAnchor: {x: -0.29948008, y: -0.0021208152, z: 0.0000003054738}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1080,7 +1080,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24157906, y: 0.37962425, z: -0.000000042574747}
+  m_ConnectedAnchor: {x: -0.24157906, y: 0.37962407, z: -0.000000085149495}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1122,7 +1122,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24157894, y: -0.37962484, z: 0.00000006386212}
+  m_ConnectedAnchor: {x: -0.24157894, y: -0.37962472, z: 0.00000019158637}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1164,7 +1164,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.6315566, y: -0.00000005964867, z: -0.00000005621197}
+  m_ConnectedAnchor: {x: -0.6315566, y: 0.00000006607989, z: 0.000000058540277}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1206,7 +1206,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.26846504, y: -0.16965444, z: 0.002792567}
+  m_ConnectedAnchor: {x: 0.26846516, y: -0.16965453, z: 0.0027925968}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1248,7 +1248,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.7281881, y: -0.000000012766627, z: -0.000000024613525}
+  m_ConnectedAnchor: {x: -0.7281881, y: 0.00000008409093, z: 0.00000012140455}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1290,7 +1290,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.28367582, y: -0.17866914, z: -0.00000014901161}
+  m_ConnectedAnchor: {x: 0.2836759, y: -0.17866926, z: -0.000000022351742}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1332,7 +1332,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.31715134, y: -0.0015300885, z: 0.0027922988}
+  m_ConnectedAnchor: {x: -0.3171515, y: -0.0015302245, z: 0.002792582}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1406,15 +1406,15 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: speechClips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 5bacc7b51cfb344448b2aae3e80273ab, type: 3}
+      objectReference: {fileID: 8300000, guid: 378e467ff39ce3b499346f34d34dae10, type: 3}
     - target: {fileID: 0}
       propertyPath: speechClips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
+      objectReference: {fileID: 8300000, guid: 4ad2f5234745fd64680c570fed32e375, type: 3}
     - target: {fileID: 0}
       propertyPath: speechClips.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
+      objectReference: {fileID: 8300000, guid: 198787198e07fb4488dbee113066e340, type: 3}
     - target: {fileID: 0}
       propertyPath: conversionClips.Array.data[0]
       value: 
@@ -1471,6 +1471,14 @@ Prefab:
       propertyPath: walkClips.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
+    - target: {fileID: 0}
+      propertyPath: MinTalkWaitDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxTalkWaitDuration
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134998}

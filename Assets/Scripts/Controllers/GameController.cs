@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     [HideInInspector] public List<GameObject> playerTargets;
     public CameraController cameraController;
     private ScoreController scoreController;
+    public Fader fader;
     
 	// Use this for initialization
 	void Awake () {
@@ -26,6 +27,8 @@ public class GameController : MonoBehaviour {
         SetCameraTargets();
         
         SetupScoreController();
+        
+        FadeIn();
 	}
 
     private void SetupScoreController() {
@@ -80,4 +83,12 @@ public class GameController : MonoBehaviour {
 	void Update () {
 	
 	}
+    
+    public void FadeIn() {
+        fader.FadeIn();
+    }
+    
+    public void FadeOut() {
+        fader.FadeOut();
+    }
 }

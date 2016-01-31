@@ -392,7 +392,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189922}
-  m_LocalRotation: {x: -0.20862447, y: -0.5370263, z: 0.18715438, w: -0.79564553}
+  m_LocalRotation: {x: -0.2157743, y: -0.5341935, z: 0.1765171, w: -0.79807305}
   m_LocalPosition: {x: -0.29947987, y: -0.0021213065, z: -7.799132e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -441,7 +441,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192052}
-  m_LocalRotation: {x: 0.12350858, y: 0.41085473, z: 0.20220739, w: -0.88037276}
+  m_LocalRotation: {x: 0.12489347, y: 0.41043633, z: 0.19923851, w: -0.8810493}
   m_LocalPosition: {x: -0.3171512, y: -0.0015303714, z: 0.0027924047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -901,8 +901,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42ec99f771cd1964aa93c74784d6181f, type: 3}
   - {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
   speechClips:
-  - {fileID: 8300000, guid: 5bacc7b51cfb344448b2aae3e80273ab, type: 3}
-  - {fileID: 8300000, guid: ee09b6d702e9a0d488258d60d524d633, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   conversionClips: []
   MinTalkWaitDuration: 10
   MaxTalkWaitDuration: 60
@@ -1186,7 +1186,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.28367582, y: -0.17866933, z: -0.00000039488077}
+  m_ConnectedAnchor: {x: 0.28367585, y: -0.17866936, z: -0.00000035762787}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1270,7 +1270,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.26846492, y: -0.16965447, z: 0.0027925074}
+  m_ConnectedAnchor: {x: 0.268465, y: -0.16965446, z: 0.002792418}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1599,6 +1599,10 @@ Prefab:
       propertyPath: walkClips.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 183352}
