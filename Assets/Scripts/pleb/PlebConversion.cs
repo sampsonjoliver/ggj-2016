@@ -83,13 +83,16 @@ public class PlebConversion : MonoBehaviour {
     
     private void ConvertToNextTarget() {
         if (HasAvailableConversionTargets()) {
+            if (conversionTarget != GetNextAvailableConversionTarget()) {
+                PlayConvertAudioClip();
+            }
+            
             //Debug.Log("Pleb acquiring new target " + GetNextAvailableConversionTarget());
             conversionTarget = GetNextAvailableConversionTarget();
             conversionFalloffElapsedTime = 0f;
             conversionPerc = MaxConversion;
             
             SetColor(conversionTarget.GetComponentInChildren<Converter>().color);
-            PlayConvertAudioClip();
         }
     }
     

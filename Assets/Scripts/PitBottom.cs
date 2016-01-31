@@ -3,31 +3,52 @@ using System.Collections;
 
 public class PitBottom : MonoBehaviour {
     public GameController gameController;
+    public AudioSource audioSource;
+    public AudioClip[] sizzleClips;
+    public AudioClip[] bubbleClips;
+    private float originalPitch;
     
 	// Use this for initialization
 	void Start () {
-	
+	   originalPitch = audioSource.pitch;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+        // PlayBubbleClip();
 	}
     
+    private void PlayBubbleClip() {
+	   if (!audioSource.isPlaying) {
+           audioSource.clip = GetBubbleClip();
+           audioSource.Play();
+       }
+    }
+    
+    private void PlaySizzleClip() {
+	   if (audioSource.isPlaying) {
+           audioSource.Stop();
+       }
+        audioSource.clip = GetSizzleClip();
+        audioSource.Play();
+    }
+
+    private AudioClip GetSizzleClip() {
+        return sizzleClips[Random.Range(0, sizzleClips.Length-1)];
+    }
+
+    private AudioClip GetBubbleClip() {
+        return bubbleClips[Random.Range(0, bubbleClips.Length-1)];
+    }
+
     public void OnTriggerEnter(Collider other) {
-        Debug.Log("Woo");
-        if (other.gameObject.tag == Tags.PLEB) {
-            Debug.Log("Woo2");
-            if (other.GetComponent<PlebConversion>().conversionTarget != null)
+        if (other.gameObject.tag == Tags.PLEB || other.gameObject.tag == Tags.PLAYER) {
+            if (other.gameObject.tag == Tags.PLEB && other.GetComponent<PlebConversion>().conversionTarget != null)
                 gameController.HandleScoreIncrement(other.GetComponent<PlebConversion>().conversionTarget.transform.parent.gameObject);
                 
-            other.GetComponentInParent<PlebHealth>().OnDeath();
+            PlaySizzleClip();
+            other.GetComponent<IMortal>().OnDeath();
             return;
-        }
-        
-        // destroy gameobjects with a rigid body
-        if (other.GetComponent<Rigidbody>() != null) {
-            Destroy(other.gameObject);
         }
     }
 }

@@ -20,6 +20,8 @@ public class ScoreController : MonoBehaviour {
         this.playerColors = playerColors;
         
         for (int i = 0; i < playerScores.Length; ++i) {
+            Debug.Log(playerScoreUIElements[i]);
+           playerScoreUIElements[i].gameObject.SetActive(true);
            playerScoreUIElements[i].maxValue = winningScore;
            playerScores[i] = 0f;
        }

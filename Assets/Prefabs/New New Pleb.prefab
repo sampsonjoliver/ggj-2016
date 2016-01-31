@@ -13,7 +13,7 @@ GameObject:
   - 135: {fileID: 13574520}
   m_Layer: 0
   m_Name: joint6
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ GameObject:
   - 138: {fileID: 13822988}
   m_Layer: 0
   m_Name: joint1
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,7 @@ GameObject:
   - 135: {fileID: 13519646}
   m_Layer: 0
   m_Name: joint10
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +67,7 @@ GameObject:
   - 135: {fileID: 13595224}
   m_Layer: 0
   m_Name: joint11
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ GameObject:
   - 135: {fileID: 13569058}
   m_Layer: 0
   m_Name: joint5
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,7 @@ GameObject:
   - 135: {fileID: 13560982}
   m_Layer: 0
   m_Name: joint3
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   - 135: {fileID: 13592258}
   m_Layer: 0
   m_Name: joint12
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - 135: {fileID: 13511724}
   m_Layer: 0
   m_Name: joint4
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ GameObject:
   - 135: {fileID: 13535414}
   m_Layer: 0
   m_Name: joint9
-  m_TagString: BodyPart
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,7 +254,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174326}
   m_LocalRotation: {x: 0, y: -0.9147499, z: 0, w: 0.4040206}
-  m_LocalPosition: {x: 0, y: 0.79999995, z: 0}
+  m_LocalPosition: {x: 4.791807, y: 0.79999995, z: 1.3033544}
   m_LocalScale: {x: 1.4285711, y: 1.4285715, z: 1.4285711}
   m_Children: []
   m_Father: {fileID: 436722}
@@ -304,7 +304,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134998}
   m_LocalRotation: {x: 0, y: 0.9147499, z: 0, w: 0.4040206}
-  m_LocalPosition: {x: 4.2769547, y: 0, z: -0.9481169}
+  m_LocalPosition: {x: -0.99, y: 0.5, z: 5.44}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 469164}
@@ -333,7 +333,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186610}
   m_LocalRotation: {x: 0, y: -0.9147499, z: 0, w: 0.4040206}
-  m_LocalPosition: {x: 0, y: 0.79999995, z: 0}
+  m_LocalPosition: {x: 4.791807, y: 0.79999995, z: 1.3033544}
   m_LocalScale: {x: 1.4285711, y: 1.4285715, z: 1.4285711}
   m_Children: []
   m_Father: {fileID: 436722}
@@ -761,7 +761,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311ae9ea7e525084eafab6e9068c7acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathClip: {fileID: 8300000, guid: e8116f5d9cbfd554792b9ec9fb461b9d, type: 3}
+  deathClips:
+  - {fileID: 8300000, guid: 6fb7c095857f1e64a95630d1520c4479, type: 3}
+  - {fileID: 8300000, guid: 9c5cd218e132838439c94719243b79e1, type: 3}
+  - {fileID: 8300000, guid: 2f59a85d98e132d4e858849948a966ba, type: 3}
+  - {fileID: 8300000, guid: 25c41f4dd51afaf4dbb44bbd63b753f6, type: 3}
 --- !u!114 &11451834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -776,7 +780,7 @@ MonoBehaviour:
   ConversionFalloffTime: 4
   conversionFalloffElapsedTime: 0
   conversionPerc: 0
-  color: {r: 0.34509805, g: 0.34509805, b: 0.34509805, a: 1}
+  color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   availableConversionTargets: []
   conversionTarget: {fileID: 0}
 --- !u!114 &11478204
@@ -792,16 +796,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkAudioSource: {fileID: 8261376}
   talkAudioSource: {fileID: 8210732}
-  walkClip: {fileID: 8300000, guid: 2c63c93d9d7578f4c99f2204083e4105, type: 3}
+  walkClips:
+  - {fileID: 8300000, guid: a02c8859b93adce42a06be01018faec7, type: 3}
+  - {fileID: 8300000, guid: 42ec99f771cd1964aa93c74784d6181f, type: 3}
+  - {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
   speechClips:
-  - {fileID: 8300000, guid: de2f3a7e139e95340901343ffb467a49, type: 3}
-  - {fileID: 8300000, guid: be0b36f77f8bcbd4cb6817a6a2aa67f8, type: 3}
-  - {fileID: 8300000, guid: 9e8ce758130685e4eb8043649657baf2, type: 3}
+  - {fileID: 8300000, guid: 378e467ff39ce3b499346f34d34dae10, type: 3}
+  - {fileID: 8300000, guid: 4ad2f5234745fd64680c570fed32e375, type: 3}
+  - {fileID: 8300000, guid: 198787198e07fb4488dbee113066e340, type: 3}
   conversionClips:
-  - {fileID: 8300000, guid: bdd066bb8d0b92e43829a5f69b5ea924, type: 3}
-  - {fileID: 8300000, guid: 3cc248382e9d1534daaaff455e355087, type: 3}
-  MinTalkWaitDuration: 10
-  MaxTalkWaitDuration: 60
+  - {fileID: 8300000, guid: 1f0bacbf10957704c9113963e264e126, type: 3}
+  - {fileID: 8300000, guid: db6ee6003129ca84cba5e51edb9550ca, type: 3}
+  - {fileID: 8300000, guid: adb4b2a2f6a6ec24cb26a81ce5b6950f, type: 3}
+  - {fileID: 8300000, guid: 042a4666e80d28b44a8424fbb8383dd1, type: 3}
+  - {fileID: 8300000, guid: 4cc8c905cebd5ed4e9ebfde879658d43, type: 3}
+  - {fileID: 8300000, guid: b48d1f4d7962cc84ebe090c665fec0b2, type: 3}
+  - {fileID: 8300000, guid: b3092cfc6cb7f80408db8f9223b7ad7f, type: 3}
+  MinTalkWaitDuration: 5
+  MaxTalkWaitDuration: 15
 --- !u!114 &11479266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -815,12 +827,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   stopRadius: 3
-  repelRadius: 2
   lockY: 0.5
   audioHandler: {fileID: 11478204}
   ouchClips:
-  - {fileID: 8300000, guid: e8116f5d9cbfd554792b9ec9fb461b9d, type: 3}
-  - {fileID: 8300000, guid: 2c63c93d9d7578f4c99f2204083e4105, type: 3}
+  - {fileID: 8300000, guid: 7d06905926fc786489072a1eb380fe16, type: 3}
+  - {fileID: 8300000, guid: 2c5828a6b2f4fe541aac8ecc845bada6, type: 3}
+  - {fileID: 8300000, guid: ac604fb3afd247f4ca7b1f86c4e5f25c, type: 3}
 --- !u!135 &13511724
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1026,7 +1038,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.29947984, y: -0.002120994, z: 0.00000010430813}
+  m_ConnectedAnchor: {x: -0.29948008, y: -0.0021208152, z: 0.0000003054738}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1068,7 +1080,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24157917, y: 0.37962425, z: 0.000000021287374}
+  m_ConnectedAnchor: {x: -0.24157906, y: 0.37962407, z: -0.000000085149495}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1110,7 +1122,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24157888, y: -0.37962496, z: 0.000000085149495}
+  m_ConnectedAnchor: {x: -0.24157894, y: -0.37962472, z: 0.00000019158637}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1152,7 +1164,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.6315566, y: -0.00000022588978, z: 0.00000025312016}
+  m_ConnectedAnchor: {x: -0.6315566, y: 0.00000006607989, z: 0.000000058540277}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1194,7 +1206,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.26846513, y: -0.1696544, z: 0.0027924776}
+  m_ConnectedAnchor: {x: 0.26846516, y: -0.16965453, z: 0.0027925968}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1236,7 +1248,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.7281881, y: -0.00000021393232, z: 0.00000019557774}
+  m_ConnectedAnchor: {x: -0.7281881, y: 0.00000008409093, z: 0.00000012140455}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1278,7 +1290,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.2836757, y: -0.1786691, z: -0.000000007450581}
+  m_ConnectedAnchor: {x: 0.2836759, y: -0.17866926, z: -0.000000022351742}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1320,7 +1332,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.31715143, y: -0.0015298985, z: 0.002792418}
+  m_ConnectedAnchor: {x: -0.3171515, y: -0.0015302245, z: 0.002792582}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1358,7 +1370,115 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ouchClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ouchClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7d06905926fc786489072a1eb380fe16, type: 3}
+    - target: {fileID: 0}
+      propertyPath: ouchClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c5828a6b2f4fe541aac8ecc845bada6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: ouchClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: ac604fb3afd247f4ca7b1f86c4e5f25c, type: 3}
+    - target: {fileID: 0}
+      propertyPath: ouchClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c5828a6b2f4fe541aac8ecc845bada6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speechClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 378e467ff39ce3b499346f34d34dae10, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speechClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ad2f5234745fd64680c570fed32e375, type: 3}
+    - target: {fileID: 0}
+      propertyPath: speechClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 198787198e07fb4488dbee113066e340, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f0bacbf10957704c9113963e264e126, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: db6ee6003129ca84cba5e51edb9550ca, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: adb4b2a2f6a6ec24cb26a81ce5b6950f, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 042a4666e80d28b44a8424fbb8383dd1, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cc8c905cebd5ed4e9ebfde879658d43, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: b48d1f4d7962cc84ebe090c665fec0b2, type: 3}
+    - target: {fileID: 0}
+      propertyPath: conversionClips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: b3092cfc6cb7f80408db8f9223b7ad7f, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6fb7c095857f1e64a95630d1520c4479, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c5cd218e132838439c94719243b79e1, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f59a85d98e132d4e858849948a966ba, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 25c41f4dd51afaf4dbb44bbd63b753f6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a02c8859b93adce42a06be01018faec7, type: 3}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 42ec99f771cd1964aa93c74784d6181f, type: 3}
+    - target: {fileID: 0}
+      propertyPath: walkClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: fc858f05b0f623a4ba2e746117642c25, type: 3}
+    - target: {fileID: 0}
+      propertyPath: MinTalkWaitDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxTalkWaitDuration
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134998}
