@@ -17,18 +17,9 @@ public class PitEnter : MonoBehaviour {
         // ragdoll stuff that lands in pit
         if(other.gameObject.tag == Tags.PLAYER || other.gameObject.tag == Tags.PLEB)
         {
-            // Disable character controller
-            if(other.gameObject.GetComponent<CharacterController>() != null)
-                other.gameObject.GetComponent<CharacterController>().enabled = false;
-                
-            // Set that sweet sweet ragdoll yo
-            Rigidbody body = other.gameObject.GetComponent<Rigidbody>();
-            body.isKinematic = false;
-            body.constraints = RigidbodyConstraints.None;
-            
-            // Freeze pleb conversion falloff
-            if(other.gameObject.GetComponent<PlebHealth>() != null) {
-                other.gameObject.GetComponent<PlebHealth>().OnImminentDeath();
+            // Enable the ragdoll glory and other death logic
+            if(other.gameObject.GetComponent<IMortal>() != null) {
+                other.gameObject.GetComponent<IMortal>().OnImminentDeath();
             }
         }
     }

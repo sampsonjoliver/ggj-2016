@@ -1,21 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class PlebMovement : MonoBehaviour {
-    
-    public float moveSpeed = 5f;
+public class PlebMovement : ActorMovement {
     
     public float stopRadius = 3f;
-    
     public float lockY = 0.5f;
     private PlebConversion plebConversion;
-    private CharacterController charController;
-    private Animator animator;
     private Rigidbody rigidBody;
-    
-    private bool isRagdoll = false;
-    private Vector3 ragdollImpulse = Vector3.zero;
-    
+        
     private float minRandTime = 0.5f;
     private float maxRandTime = 0.8f;
     private float elapsedTime;
@@ -39,6 +31,7 @@ public class PlebMovement : MonoBehaviour {
             ragdollImpulse.Set(0, 0, 0);
         }
     }
+    
 	// Update is called once per frame
 	void Update () {
         if (isRagdoll) {
@@ -88,24 +81,12 @@ public class PlebMovement : MonoBehaviour {
         transform.LookAt(transform.position + move.normalized);
     }
     
-    public void SetRagdoll(bool flag) {
-        charController.enabled = !flag;
-        if(!flag)
-            animator.SetTrigger("return");
-        else
+    public override void SetRagdoll(bool isRagdoll) {
+        base.SetRagdoll(isRagdoll);
+        if(isRagdoll)
             audioTime = GetNextOuchTime();
-        animator.enabled = !flag;
-        // change all rigidbodies
-        Rigidbody[] rigidBodies = GetComponentsInChildren<Rigidbody>();
-        foreach(Rigidbody body in rigidBodies) {
-            body.isKinematic = !flag;
-        }
-        isRagdoll = flag;
     }
-    
-    public void AddRagdollImpulse(Vector3 impulse) {
-        ragdollImpulse += impulse;
-    }
+
     
     private float GetNextOuchTime() {
         return Random.Range(minRandTime, maxRandTime);

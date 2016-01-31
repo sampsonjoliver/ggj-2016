@@ -15,19 +15,12 @@ public class PitBottom : MonoBehaviour {
 	}
     
     public void OnTriggerEnter(Collider other) {
-        Debug.Log("Woo");
-        if (other.gameObject.tag == Tags.PLEB) {
-            Debug.Log("Woo2");
-            if (other.GetComponent<PlebConversion>().conversionTarget != null)
+        if (other.gameObject.tag == Tags.PLEB || other.gameObject.tag == Tags.PLAYER) {
+            if (other.gameObject.tag == Tags.PLEB && other.GetComponent<PlebConversion>().conversionTarget != null)
                 gameController.HandleScoreIncrement(other.GetComponent<PlebConversion>().conversionTarget.transform.parent.gameObject);
                 
-            other.GetComponentInParent<PlebHealth>().OnDeath();
+            other.GetComponent<IMortal>().OnDeath();
             return;
-        }
-        
-        // destroy gameobjects with a rigid body
-        if (other.GetComponent<Rigidbody>() != null) {
-            Destroy(other.gameObject);
         }
     }
 }

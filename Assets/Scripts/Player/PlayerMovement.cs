@@ -1,17 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
-    public float moveSpeed = 5f;
-    
+public class PlayerMovement : ActorMovement {
     public float lockY = 1f;
     private ActorAudioHandler audioHandler;
     
     [HideInInspector] public string horizontalInputAxis = "Horizontal";
     [HideInInspector] public string verticalInputAxis = "Vertical";
     
-    private CharacterController charController;
-    private Animator animator;
 	// Use this for initialization
 	void Start () {
 	   charController = GetComponent<CharacterController>();
