@@ -93,15 +93,18 @@ public class CameraController : MonoBehaviour
 
         transform.position = desiredPos;
 
-        Vector3 pos = cam.transform.localPosition;
         Vector2 requiredSize = FindRequiredSize();
+        // calculate required camera depth
         float requiredCamDepth;
         if(requiredSize.x > requiredSize.y)
-            requiredCamDepth = -requiredSize.x * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            requiredCamDepth = (requiredSize.x / cam.aspect) * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
         else
-            requiredCamDepth = -requiredSize.y * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        pos.z = -Mathf.Max(Mathf.Abs(requiredCamDepth), Mathf.Abs(MinCamDepth));
-        
+            requiredCamDepth = requiredSize.y * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        Vector3 pos = cam.transform.localPosition;
+        float cameraZ = Mathf.Max(Mathf.Abs(requiredCamDepth), Mathf.Abs(MinCamDepth));
+        // buffer
+        cameraZ *= 1 + Mathf.Lerp(EDGE_BUFFER, 0.02f, (cameraZ - MinCamDepth) / (MaxCamDepth - MinCamDepth));
+        pos.z = -cameraZ;
         cam.transform.localPosition = pos;
     }
 }

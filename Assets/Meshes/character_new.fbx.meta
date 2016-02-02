@@ -16,6 +16,7 @@ ModelImporter:
     100016: joint5
     100018: joint6
     100020: joint9
+    100022: character_mesh
     400000: character
     400002: //RootNode
     400004: joint1
@@ -27,9 +28,13 @@ ModelImporter:
     400016: joint5
     400018: joint6
     400020: joint9
+    400022: character_mesh
     4300000: character
+    4300002: character_mesh
+    7400000: Take 001
     9500000: //RootNode
     13700000: character
+    13700002: character_mesh
   materials:
     importMaterials: 1
     materialName: 0

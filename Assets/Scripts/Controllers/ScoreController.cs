@@ -15,7 +15,7 @@ public class ScoreController : MonoBehaviour {
 	}
     
     public void Init(int numPlebs, int numPlayers, Color[] playerColors) {
-        winningScore = Mathf.Floor(numPlebs / 2 + 1);
+        winningScore = Mathf.Floor(numPlebs / numPlayers);
         playerScores = new float[numPlayers];
         this.playerColors = playerColors;
         
@@ -37,5 +37,8 @@ public class ScoreController : MonoBehaviour {
     
     public void IncrementScore(int playerNumber) {
         playerScores[playerNumber]++;
+        if(playerScores[playerNumber] >= winningScore) {
+            GetComponent<GameController>().PlayerWin(playerNumber);
+        }
     }
 }

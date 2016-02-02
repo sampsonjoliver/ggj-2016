@@ -35,7 +35,7 @@ public class PlebConversion : MonoBehaviour {
                 if (HasAvailableConversionTargets()) {
                     // Check if there is a secondary target we can switch to
                     ConvertToNextTarget();
-                } else {
+                } /*else {
                     // We aren't in any influence sphere, so we need to do conversion falloff
                     conversionFalloffElapsedTime += Time.deltaTime;
                     float tFrac = conversionFalloffElapsedTime / ConversionFalloffTime;
@@ -49,7 +49,7 @@ public class PlebConversion : MonoBehaviour {
                         //Debug.Log("Pleb conversion falling off.");
                         conversionTarget = null;
                     }
-                }
+                } */
             }
         }
     }

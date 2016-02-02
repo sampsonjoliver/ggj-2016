@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
     public CameraController cameraController;
     private ScoreController scoreController;
     public Fader fader;
+    public Light pitLight;
     
 	// Use this for initialization
 	void Awake () {
@@ -38,6 +39,17 @@ public class GameController : MonoBehaviour {
 
     public void HandleScoreIncrement(GameObject player) {
         scoreController.IncrementScore(GetPlayerNumber(player));
+    }
+    
+
+    internal void PlayerWin(int playerNumber)
+    {
+        Debug.Log("Player Win: " + playerNumber);
+        cameraController.enabled = false;
+        cameraController.GetComponentInParent<Rotate>().enabled = true;
+        cameraController.GetComponentInParent<Rotate>().StartStuff();
+        cameraController.transform.position = Vector3.zero;
+        pitLight.color = playerColors[playerNumber];
     }
     
     public int GetPlayerNumber(GameObject player) {
@@ -81,7 +93,11 @@ public class GameController : MonoBehaviour {
     
 	// Update is called once per frame
 	void Update () {
-	
+	   if (Input.GetKey("escape")) {
+           Application.Quit();
+       }
+       if(Input.GetKey(KeyCode.F1))
+            Application.LoadLevel(Application.loadedLevel);
 	}
     
     public void FadeIn() {
