@@ -82,7 +82,7 @@ public class PlebConversion : MonoBehaviour {
     }
     
     private void ConvertToNextTarget() {
-        if (HasAvailableConversionTargets()) {
+        if (HasAvailableConversionTargets() && this.enabled) {
             if (conversionTarget != GetNextAvailableConversionTarget()) {
                 PlayConvertAudioClip();
             }

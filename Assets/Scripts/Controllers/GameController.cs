@@ -1,55 +1,137 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class GameController : MonoBehaviour {
     public Color[] playerColors = {Color.red, Color.blue, Color.green, Color.yellow };
     private const string HorizontalAxisPrefix = "Horizontal";
     private const string VerticalAxisPrefix = "Vertical";
     private const string FireKeyPrefix = "Fire";
+    
     public List<Transform> playerSpawnPoints;
     public List<Transform> plebSpawnPoints;
-    public int playerCount = 2;
-    public int plebCount = 100;
+    private int playerCount = 0;
+    private int plebCount;
     public GameObject playerPrefab;
     public GameObject plebPrefab;
-    [HideInInspector] public List<GameObject> playerTargets;
-    public CameraController cameraController;
+    
+    public List<GameObject> playerTargets;
+    public List<PlayerIndicator> playerIndicators;
+    
+    private CameraController cameraController;
+    private Rotate cameraRotateController;
     private ScoreController scoreController;
     public Fader fader;
     public Light pitLight;
     
+    private int winningPlayer;
+    private bool playerHasWon;
+    private GameState currentGameState;
+    private enum GameState {
+        STARTING,
+        PLAYING,
+        ENDING
+    }
+    
+    private bool[] enabledPlayers = new bool[4];
+    
 	// Use this for initialization
 	void Awake () {
-	//    SpawnPlebs();
+        cameraController = GetComponentInChildren<CameraController>();
+        cameraRotateController = GetComponentInChildren<Rotate>();
+        RoundStarting();
+
+        InitPlayers();
+	}
+    
+	// Update is called once per frame
+	void Update () {
+        if (currentGameState == GameState.STARTING) {
+            CheckEnabledPlayers();
+            if (Input.GetButtonDown("Submit")) {
+                RoundPlaying();
+            }
+        } else if (currentGameState == GameState.PLAYING) {
+            
+        } else if (currentGameState == GameState.ENDING) {
+            
+        }
+        
+	   if (Input.GetButtonDown("Quit")) {
+           Application.Quit();
+       }
+       
+       if(Input.GetButtonDown("Reload")) {
+            Application.LoadLevel(Application.loadedLevel);
+       }
+	}
+    
+    private void RoundStarting()
+    {
+        // Players need to opt-in and press return to begin play
+        currentGameState = GameState.STARTING;
+        FadeIn();
+        SetCameraOrbit(true);
+        // show all indicators as disabled
+        for(int i = 0; i < playerTargets.Count; ++i) {
+            enabledPlayers[i] = false;
+            playerIndicators[i].gameObject.SetActive(true);
+            playerIndicators[i].SetColor(playerColors[i]);
+            playerIndicators[i].Set(false);
+        }
+    }
+
+    private void RoundPlaying()
+    {
+        // Initialise the players, plebs, and camera targets (so... players, again)
+        currentGameState = GameState.PLAYING;
         FindPlebs();
-        FindPlayers();
         InitPlayers();
         SetCameraTargets();
         
-        SetupScoreController();
+        // disable all indicators
+        for(int i = 0; i < playerTargets.Count; ++i) {
+            playerIndicators[i].gameObject.SetActive(false);
+            playerIndicators[i].Set(false);
+        }
         
-        FadeIn();
-	}
+        SetupScoreController();
+        playerHasWon = false;
+    }
 
+
+    private void RoundEnding()
+    {
+        // Go to the end-game state
+        currentGameState = GameState.ENDING;
+        SetCameraOrbit(true);
+        pitLight.color = playerColors[winningPlayer];
+    }
+    
     private void SetupScoreController() {
+        
         scoreController = GetComponent<ScoreController>();
-        scoreController.Init(plebCount, playerTargets.Count, playerColors);
+        scoreController.Init(plebCount, enabledPlayers, playerColors);
     }
 
     public void HandleScoreIncrement(GameObject player) {
         scoreController.IncrementScore(GetPlayerNumber(player));
     }
     
-
-    internal void PlayerWin(int playerNumber)
+    internal void OnPlayerWin(int playerNumber)
     {
+        winningPlayer = playerNumber;
+        playerHasWon = true;
         Debug.Log("Player Win: " + playerNumber);
-        cameraController.enabled = false;
-        cameraController.GetComponentInParent<Rotate>().enabled = true;
+        RoundEnding();
+    }
+    
+    private void SetCameraOrbit(bool enabled) {
+        cameraController.enabled = !enabled;
+        cameraController.GetComponentInParent<Rotate>().enabled = enabled;
         cameraController.GetComponentInParent<Rotate>().StartStuff();
         cameraController.transform.position = Vector3.zero;
-        pitLight.color = playerColors[playerNumber];
     }
     
     public int GetPlayerNumber(GameObject player) {
@@ -63,6 +145,7 @@ public class GameController : MonoBehaviour {
             camTargets.Add(target.transform);
         }
         cameraController.cameraTargets = camTargets;
+        SetCameraOrbit(false);
     }
 
     private void FindPlebs() {
@@ -73,32 +156,43 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private void FindPlayers() {
-        playerTargets = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.PLAYER));
-    }
-    
-    private void InitPlayers() {
-        for (int i = 0; i < playerTargets.Count; ++i) {
-            playerTargets[i].GetComponent<PlayerMovement>().setInputAxes(HorizontalAxisPrefix + (i+1), VerticalAxisPrefix + (i+1));
-            playerTargets[i].GetComponentInChildren<Converter>().color = playerColors[i];
-            playerTargets[i].GetComponent<PlayerPush>().inputKey = FireKeyPrefix + (i+1);
-        }
-    }
-
-    void SpawnPlebs() {
+    private void SpawnPlebs() {
         for (int i = 0; i < plebSpawnPoints.Count; ++i) {
             Instantiate(plebPrefab, plebSpawnPoints[i].position, plebSpawnPoints[i].rotation);
         }
     }
     
-	// Update is called once per frame
-	void Update () {
-	   if (Input.GetKey("escape")) {
-           Application.Quit();
-       }
-       if(Input.GetKey(KeyCode.F1))
-            Application.LoadLevel(Application.loadedLevel);
-	}
+    private void InitPlayers() {
+        for (int i = 0; i < playerTargets.Count; ++i) {
+            // Enable/disable players
+            playerTargets[i].SetActive(enabledPlayers[i]);
+            Debug.Log(enabledPlayers[i]);
+            
+            // Set up player components
+            playerTargets[i].GetComponent<PlayerMovement>().setInputAxes(HorizontalAxisPrefix + (i+1), VerticalAxisPrefix + (i+1));
+            playerTargets[i].GetComponent<PlayerPush>().inputKey = FireKeyPrefix + (i+1);
+            playerTargets[i].GetComponentInChildren<Converter>().color = playerColors[i];
+        }
+    }
+    
+    private void CheckEnabledPlayers() {
+        if (Input.GetButtonDown("Fire1")) {
+            enabledPlayers[0] = !enabledPlayers[0];
+            playerIndicators[0].Set(enabledPlayers[0]);
+        }
+        if (Input.GetButtonDown("Fire2")) {
+            enabledPlayers[1] = !enabledPlayers[1];
+            playerIndicators[1].Set(enabledPlayers[1]);
+        }
+        if (Input.GetButtonDown("Fire3")) {
+            enabledPlayers[2] = !enabledPlayers[2];
+            playerIndicators[2].Set(enabledPlayers[2]);
+        }
+        if (Input.GetButtonDown("Fire4")) {
+            enabledPlayers[3] = !enabledPlayers[3];
+            playerIndicators[3].Set(enabledPlayers[3]);
+        }
+    }
     
     public void FadeIn() {
         fader.FadeIn();

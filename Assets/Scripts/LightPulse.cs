@@ -8,9 +8,10 @@ public class LightPulse : MonoBehaviour {
     public float MinPulseTime = 0.2f;
     public float MaxPulseTime = 0.8f;
     
+    public float MinPulseDelta = 0.0f;
     public float MaxPulseDelta = 0.5f;
     
-    private float originalIntensity;
+    public float OriginalIntensity;
     
     private float pulseTime;
     private float elapsedTime;
@@ -19,7 +20,7 @@ public class LightPulse : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	   light = GetComponent<Light>();
-       originalIntensity = light.intensity;
+       OriginalIntensity = light.intensity;
        SetNextPulse();
 	}
 	
@@ -35,6 +36,7 @@ public class LightPulse : MonoBehaviour {
         pulseTime = Random.Range(MinPulseTime, MaxPulseTime);
         elapsedTime = 0;
         oldIntensity = light.intensity;
-        newIntensity = originalIntensity + Random.Range(-MaxPulseDelta, MaxPulseDelta);
+        float delta = Random.Range(MinPulseDelta, MaxPulseDelta);
+        newIntensity = OriginalIntensity + (light.intensity > OriginalIntensity ? -delta : delta);
     }
 }

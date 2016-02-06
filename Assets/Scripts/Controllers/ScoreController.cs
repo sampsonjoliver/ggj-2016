@@ -14,16 +14,18 @@ public class ScoreController : MonoBehaviour {
 	   
 	}
     
-    public void Init(int numPlebs, int numPlayers, Color[] playerColors) {
-        winningScore = Mathf.Floor(numPlebs / numPlayers);
-        playerScores = new float[numPlayers];
+    public void Init(int numPlebs, bool[] players, Color[] playerColors) {       
+        winningScore = Mathf.Floor(numPlebs / players.Length);
+        playerScores = new float[players.Length];
         this.playerColors = playerColors;
         
         for (int i = 0; i < playerScores.Length; ++i) {
-            Debug.Log(playerScoreUIElements[i]);
-           playerScoreUIElements[i].gameObject.SetActive(true);
-           playerScoreUIElements[i].maxValue = winningScore;
-           playerScores[i] = 0f;
+            if(players[i]) {
+                Debug.Log(playerScoreUIElements[i]);
+                playerScoreUIElements[i].gameObject.SetActive(true);
+                playerScoreUIElements[i].maxValue = winningScore;
+                playerScores[i] = 0f;
+            }
        }
     }
 	
@@ -37,8 +39,9 @@ public class ScoreController : MonoBehaviour {
     
     public void IncrementScore(int playerNumber) {
         playerScores[playerNumber]++;
+        // Signal a winner to the game controller
         if(playerScores[playerNumber] >= winningScore) {
-            GetComponent<GameController>().PlayerWin(playerNumber);
+            GetComponent<GameController>().OnPlayerWin(playerNumber);
         }
     }
 }

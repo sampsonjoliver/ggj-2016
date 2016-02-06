@@ -35,6 +35,7 @@ public class CameraController : MonoBehaviour
 
         for (int i = 0; i < cameraTargets.Count; i++) {
             if (cameraTargets[i].gameObject.activeSelf) {
+                // Debug.Log(i + ": projecting " + cameraTargets[i].transform.position + " to " + Vector3.ProjectOnPlane(cameraTargets[i].transform.position, transform.forward));
                 averagePos += cameraTargets[i].position;
                 numTargets++;
             }
