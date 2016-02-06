@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour
 {
-    public float DAMPING_TIME = 0.2f;
-    public float EDGE_BUFFER = 4f;           
+    public float DampingTime = 0.2f;
+    public float EdgeBuffer = 4f;           
     public float MinCamDepth = 8f;
     public float MaxCamDepth = 60f;
        
@@ -14,98 +14,77 @@ public class CameraController : MonoBehaviour
     private float zoomSpeed;
     private Vector3 moveVelocity;
     private Vector3 desiredPos;
+    
+    private Rect targetRect;
+    private Vector2 projectedRectDims;
 
     private void Awake() {
         cam = GetComponentInChildren<Camera>();
     }
 
     private void FixedUpdate() {
+        // find the world rectangle that includes all targets
+        targetRect = FindTargetRect();
+        // project to account for rotation of camera
+        projectedRectDims = new Vector2(targetRect.width, targetRect.height);
+        projectedRectDims.y *= Mathf.Sin(transform.localEulerAngles.x * Mathf.Deg2Rad);
         Move();
-        Zoom();
+        
+        //Zoom();
+        AngleZoom();
     }
 
-    private void Move() {
-        desiredPos = FindAveragePosition();
-        transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref moveVelocity, DAMPING_TIME);
-    }
-
-    private Vector3 FindAveragePosition() {
-        Vector3 averagePos = new Vector3();
-        int numTargets = 0;
-
+    private Rect FindTargetRect() {
+        Rect rect = new Rect();
+        rect.min = new Vector2(float.MaxValue, float.MaxValue);
+        rect.max = new Vector2(float.MinValue, float.MinValue);
         for (int i = 0; i < cameraTargets.Count; i++) {
             if (cameraTargets[i].gameObject.activeSelf) {
-                // Debug.Log(i + ": projecting " + cameraTargets[i].transform.position + " to " + Vector3.ProjectOnPlane(cameraTargets[i].transform.position, transform.forward));
-                averagePos += cameraTargets[i].position;
-                numTargets++;
+                rect.xMin = Mathf.Min(cameraTargets[i].position.x, rect.xMin);
+                rect.xMax = Mathf.Max(cameraTargets[i].position.x, rect.xMax);
+                rect.yMin = Mathf.Min(cameraTargets[i].position.z, rect.yMin);
+                rect.yMax = Mathf.Max(cameraTargets[i].position.z, rect.yMax);
             }
         }
-
-        if (numTargets > 0)
-            averagePos /= numTargets;
-
-        // Constrain the y position
-        averagePos.y = transform.position.y;
-
-        // Return the desired position
-        return averagePos;
-    }
-
-    private void Zoom() {
-        Vector2 requiredSize = FindRequiredSize();
-        // calculate required camera depth
-        float requiredCamDepth;
-        if(requiredSize.x > requiredSize.y)
-            requiredCamDepth = (requiredSize.x / cam.aspect) * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        else
-            requiredCamDepth = requiredSize.y * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        Vector3 pos = cam.transform.localPosition;
-        float cameraZ = Mathf.Max(Mathf.Abs(requiredCamDepth), Mathf.Abs(MinCamDepth));
-        // buffer
-        cameraZ *= 1 + Mathf.Lerp(EDGE_BUFFER, 0.02f, (cameraZ - MinCamDepth) / (MaxCamDepth - MinCamDepth));
-        pos.z = Mathf.SmoothDamp(pos.z, -cameraZ, ref zoomSpeed, DAMPING_TIME);
-        cam.transform.localPosition = pos;
-        //cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, requiredSize, ref zoomSpeed, DAMPING_TIME);
-    }
-
-    private Vector2 FindRequiredSize() {
-        Vector3 desiredLocalPos = desiredPos;
-
-        Vector2 requiredSize = Vector2.zero;
-
-        foreach (Transform cameraTarget in cameraTargets) {
-            if (cameraTarget.gameObject.activeSelf) {
-                Vector3 targetLocalPos = cameraTarget.position;
-                Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
-
-                requiredSize.x = Mathf.Max (requiredSize.x, Mathf.Abs(desiredPosToTarget.x)); // size horizontal
-                requiredSize.y = Mathf.Max (requiredSize.y, Mathf.Abs(desiredPosToTarget.z)); // size vertical
-            }
-        }
+        // apply clamping because reasons
+        rect.xMin = Mathf.Clamp(rect.xMin, -50, 50);
+        rect.xMax = Mathf.Clamp(rect.xMax, -50, 50);
+        rect.yMin = Mathf.Clamp(rect.yMin, -50, 50);
+        rect.yMax = Mathf.Clamp(rect.yMax, -50, 50);
+        // apply buffer to expand rectangle by X percent
+        float width = rect.width;
+        float height = rect.height;
+        float max = Mathf.Max(width, height);
+        // float buffer = Mathf.Clamp(Mathf.Lerp(EdgeBuffer, 0.00f, max / 100f), 0.02f, EdgeBuffer); // lerp the buffer amount 
+        // rect.xMin -= 0.5f * width * buffer;
+        // rect.xMax += 0.5f * width * buffer;
+        // rect.yMin -= 0.5f * height * buffer;
+        // rect.yMax += 0.5f * height * buffer;
         
-        requiredSize *= 2;
-        return requiredSize;
+        return rect;
     }
-
-
-    // Immediately snap to the desired position and size
-    public void SetStartPositionAndSize() {
-        desiredPos = FindAveragePosition();
-
-        transform.position = desiredPos;
-
-        Vector2 requiredSize = FindRequiredSize();
-        // calculate required camera depth
-        float requiredCamDepth;
-        if(requiredSize.x > requiredSize.y)
-            requiredCamDepth = (requiredSize.x / cam.aspect) * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        else
-            requiredCamDepth = requiredSize.y * 0.5f / Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+    private void Move() {
+        Vector3 pos = targetRect.center;
+        pos.z = pos.y - 0.5f * (targetRect.height - projectedRectDims.y);
+        pos.y = 0;
+        transform.localPosition = Vector3.SmoothDamp(transform.position, pos, ref moveVelocity, DampingTime);
+    }
+    
+    private void AngleZoom() {
+        float depth = 0;
+        for (int i = 0; i < cameraTargets.Count; i++) {
+            if (cameraTargets[i].gameObject.activeSelf && cameraTargets[i].transform.position.y > 0) {
+                float focusTargetDist = Vector3.Distance(cameraTargets[i].transform.position, transform.position);
+                float targetAngle = (180 - transform.localEulerAngles.x) * Mathf.Deg2Rad;
+                float d = (focusTargetDist * Mathf.Sin(targetAngle)) / Mathf.Sin(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+                depth = Mathf.Max(depth, d);
+            }
+        }
+        // clamp depth to bounds
+        depth = Mathf.Clamp(depth, MinCamDepth, MaxCamDepth);
+        // modify z of local position to zoom along axis of rig
         Vector3 pos = cam.transform.localPosition;
-        float cameraZ = Mathf.Max(Mathf.Abs(requiredCamDepth), Mathf.Abs(MinCamDepth));
-        // buffer
-        cameraZ *= 1 + Mathf.Lerp(EDGE_BUFFER, 0.02f, (cameraZ - MinCamDepth) / (MaxCamDepth - MinCamDepth));
-        pos.z = -cameraZ;
+        pos.z = Mathf.SmoothDamp(pos.z, -depth, ref zoomSpeed, DampingTime);
         cam.transform.localPosition = pos;
     }
 }

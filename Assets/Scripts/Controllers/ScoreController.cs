@@ -9,6 +9,8 @@ public class ScoreController : MonoBehaviour {
     public Image[] playerScoreUIFillImages;
     private Color[] playerColors;
     
+    public PitFluidControl pitFluid;
+    
 	// Use this for initialization
 	void Start () {
 	   
@@ -39,9 +41,19 @@ public class ScoreController : MonoBehaviour {
     
     public void IncrementScore(int playerNumber) {
         playerScores[playerNumber]++;
+        UpdatePitFluid();
+        
         // Signal a winner to the game controller
         if(playerScores[playerNumber] >= winningScore) {
             GetComponent<GameController>().OnPlayerWin(playerNumber);
         }
+    }
+    
+    private void UpdatePitFluid() {
+        float maxFraction = float.MinValue;
+        for (int i = 0; i < playerScores.Length; ++i) {
+            maxFraction = Mathf.Max(maxFraction, playerScores[i] / winningScore);
+        }
+        pitFluid.Set(maxFraction);
     }
 }
