@@ -84,6 +84,7 @@ public class PlebConversion : MonoBehaviour {
     private void ConvertToNextTarget() {
         if (HasAvailableConversionTargets()) {
             if (conversionTarget != GetNextAvailableConversionTarget()) {
+                audioHandler.PlaySpeech = true;
                 PlayConvertAudioClip();
             }
             

@@ -8,6 +8,12 @@ public class PitBottom : MonoBehaviour {
     public AudioClip[] bubbleClips;
     private float originalPitch;
     
+    public float MinFluidHeight = 0.1f;
+    public float MaxFluidHeight = 1.0f;
+    private float FluidHeight = 0f;
+    public float MaxFluidRotate = 10;
+    public Transform FluidTransform;
+    
 	// Use this for initialization
 	void Start () {
 	   originalPitch = audioSource.pitch;

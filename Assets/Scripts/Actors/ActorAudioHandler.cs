@@ -9,6 +9,7 @@ public class ActorAudioHandler : MonoBehaviour {
     public AudioClip[] conversionClips;
     public float MinTalkWaitDuration = 10f; 
     public float MaxTalkWaitDuration = 60f; 
+    public bool PlaySpeech = false;
     public static float CommonPitchRange = 0.1f;
 
     private float originalWalkPitch, originalTalkPitch;
@@ -26,10 +27,12 @@ public class ActorAudioHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	   elapsedDurationBetweenTalk += Time.deltaTime;
+       if(PlaySpeech) {
+            elapsedDurationBetweenTalk += Time.deltaTime;
        
-       if (elapsedDurationBetweenTalk >= nextTalkWaitTime) {
-           PlaySpeechClip(GetTalkAudioClip());
+            if (elapsedDurationBetweenTalk >= nextTalkWaitTime) {
+                PlaySpeechClip(GetTalkAudioClip());
+            }
        }
 	}
     

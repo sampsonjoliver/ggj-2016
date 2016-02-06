@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
     private ScoreController scoreController;
     public Fader fader;
     public Light pitLight;
+    public MeshRenderer pitFluid;
     
 	// Use this for initialization
 	void Awake () {
@@ -50,6 +51,10 @@ public class GameController : MonoBehaviour {
         cameraController.GetComponentInParent<Rotate>().StartStuff();
         cameraController.transform.position = Vector3.zero;
         pitLight.color = playerColors[playerNumber];
+        Color pitColor = playerColors[playerNumber];
+        pitColor *= 0.1f;
+        pitColor.a = 0.8f;
+        pitFluid.material.color = pitColor;
     }
     
     public int GetPlayerNumber(GameObject player) {
