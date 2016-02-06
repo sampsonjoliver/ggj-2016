@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         cam = GetComponentInChildren<Camera>();
     }
 
-    private void FixedUpdate() {
+    private void Update() {
         // find the world rectangle that includes all targets
         targetRect = FindTargetRect();
         // project to account for rotation of camera
@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
     }
     private void Move() {
         Vector3 pos = targetRect.center;
-        pos.z = pos.y - 0.5f * (targetRect.height - projectedRectDims.y);
+        //pos.z = pos.y - 0.5f * (targetRect.height - projectedRectDims.y);
         pos.y = 0;
         transform.localPosition = Vector3.SmoothDamp(transform.position, pos, ref moveVelocity, DampingTime);
     }

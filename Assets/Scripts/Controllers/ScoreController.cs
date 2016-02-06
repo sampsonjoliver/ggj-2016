@@ -16,8 +16,11 @@ public class ScoreController : MonoBehaviour {
 	   
 	}
     
-    public void Init(int numPlebs, bool[] players, Color[] playerColors) {       
-        winningScore = Mathf.Floor(numPlebs / players.Length);
+    public void Init(int numPlebs, bool[] players, Color[] playerColors) {
+        int activeCount = 0;
+        for(int i = 0; i < players.Length; ++i)
+            activeCount++;       
+        winningScore = Mathf.Floor(numPlebs / activeCount);
         playerScores = new float[players.Length];
         this.playerColors = playerColors;
         

@@ -8,24 +8,24 @@ public class GameController : MonoBehaviour {
     private const string HorizontalAxisPrefix = "Horizontal";
     private const string VerticalAxisPrefix = "Vertical";
     private const string FireKeyPrefix = "Fire";
-    
+
     public List<Transform> playerSpawnPoints;
     public List<Transform> plebSpawnPoints;
     private int playerCount = 0;
     private int plebCount;
     public GameObject playerPrefab;
     public GameObject plebPrefab;
-    
+
     public List<GameObject> playerTargets;
     public List<PlayerIndicator> playerIndicators;
-    
+
     private CameraController cameraController;
     private Rotate cameraRotateController;
     private ScoreController scoreController;
     public Fader fader;
     public Light pitLight;
     public MeshRenderer pitFluid;
-    
+
     private int winningPlayer;
     private bool playerHasWon;
     private GameState currentGameState;
@@ -34,9 +34,9 @@ public class GameController : MonoBehaviour {
         PLAYING,
         ENDING
     }
-    
+
     private bool[] enabledPlayers = new bool[4];
-    
+
 	// Use this for initialization
 	void Awake () {
         cameraController = GetComponentInChildren<CameraController>();
@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour {
 
         InitPlayers();
 	}
-    
+
 	// Update is called once per frame
 	void Update () {
         if (currentGameState == GameState.STARTING) {
@@ -54,20 +54,20 @@ public class GameController : MonoBehaviour {
                 RoundPlaying();
             }
         } else if (currentGameState == GameState.PLAYING) {
-            
+
         } else if (currentGameState == GameState.ENDING) {
-            
+
         }
-        
+
 	   if (Input.GetButtonDown("Quit")) {
            Application.Quit();
        }
-       
+
        if(Input.GetButtonDown("Reload")) {
             Application.LoadLevel(Application.loadedLevel);
        }
 	}
-    
+
     private void RoundStarting()
     {
         // Players need to opt-in and press return to begin play
@@ -91,12 +91,14 @@ public class GameController : MonoBehaviour {
         InitPlayers();
         SetCameraTargets();
         
+        SetCameraOrbit(false);
+
         // disable all indicators
         for(int i = 0; i < playerTargets.Count; ++i) {
             playerIndicators[i].gameObject.SetActive(false);
             playerIndicators[i].Set(false);
         }
-        
+
         SetupScoreController();
         playerHasWon = false;
     }
@@ -109,9 +111,9 @@ public class GameController : MonoBehaviour {
         SetCameraOrbit(true);
         pitLight.color = playerColors[winningPlayer];
     }
-    
+
     private void SetupScoreController() {
-        
+
         scoreController = GetComponent<ScoreController>();
         scoreController.Init(plebCount, enabledPlayers, playerColors);
     }
@@ -119,34 +121,47 @@ public class GameController : MonoBehaviour {
     public void HandleScoreIncrement(GameObject player) {
         scoreController.IncrementScore(GetPlayerNumber(player));
     }
-    
+
     internal void OnPlayerWin(int playerNumber)
     {
         winningPlayer = playerNumber;
         playerHasWon = true;
         Debug.Log("Player Win: " + playerNumber);
-        RoundEnding();
-    }
-    
-    private void SetCameraOrbit(bool enabled) {
-        cameraController.enabled = !enabled;
-        cameraController.GetComponentInParent<Rotate>().enabled = enabled;
-        cameraController.GetComponentInParent<Rotate>().StartStuff();
-        cameraController.transform.position = Vector3.zero;
         pitLight.color = playerColors[playerNumber];
         Color pitColor = playerColors[playerNumber];
         pitColor *= 0.1f;
         pitColor.a = 0.8f;
         pitFluid.material.color = pitColor;
+        RoundEnding();
     }
-    
+
+    private void SetCameraOrbit(bool enabled) {
+        cameraController.GetComponentInParent<Rotate>().enabled = enabled;
+        CameraLerp lerp = cameraController.GetComponentInParent<CameraLerp>();
+        Action onFinish = null;
+        if(enabled) {
+            cameraController.enabled = !enabled;
+            lerp.TargetAngle = 40;
+            lerp.TargetDepth = -18;
+            lerp.TargetCenter = new Vector3(-0.95f, 1, -0.95f);
+        }
+        else {
+            lerp.TargetAngle = 60;
+            lerp.TargetDepth = -14;
+            lerp.TargetCenter = Vector3.zero;
+            lerp.TargetRotation = 0;
+            onFinish = () => cameraController.enabled = true;
+        }
+        lerp.StartLerp(0.75f, onFinish);
+    }
+
     public int GetPlayerNumber(GameObject player) {
         return playerTargets.IndexOf(player);
     }
 
     private void SetCameraTargets() {
         List<Transform> camTargets = new List<Transform>(playerTargets.Count);
-        
+
         foreach (GameObject target in playerTargets) {
             camTargets.Add(target.transform);
         }
@@ -167,20 +182,20 @@ public class GameController : MonoBehaviour {
             Instantiate(plebPrefab, plebSpawnPoints[i].position, plebSpawnPoints[i].rotation);
         }
     }
-    
+
     private void InitPlayers() {
         for (int i = 0; i < playerTargets.Count; ++i) {
             // Enable/disable players
             playerTargets[i].SetActive(enabledPlayers[i]);
             Debug.Log(enabledPlayers[i]);
-            
+
             // Set up player components
             playerTargets[i].GetComponent<PlayerMovement>().setInputAxes(HorizontalAxisPrefix + (i+1), VerticalAxisPrefix + (i+1));
             playerTargets[i].GetComponent<PlayerPush>().inputKey = FireKeyPrefix + (i+1);
             playerTargets[i].GetComponentInChildren<Converter>().color = playerColors[i];
         }
     }
-    
+
     private void CheckEnabledPlayers() {
         if (Input.GetButtonDown("Fire1")) {
             enabledPlayers[0] = !enabledPlayers[0];
@@ -199,11 +214,11 @@ public class GameController : MonoBehaviour {
             playerIndicators[3].Set(enabledPlayers[3]);
         }
     }
-    
+
     public void FadeIn() {
         fader.FadeIn();
     }
-    
+
     public void FadeOut() {
         fader.FadeOut();
     }

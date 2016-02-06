@@ -12,7 +12,7 @@ public class PitFluidControl : MonoBehaviour {
     private Rotate FluidRotate;
     
     private float CurrentFraction = 0;
-    private float CurrentVelocity = 0;
+    private float CurrentVelocity = 1;
     
 	// Use this for initialization
 	void Start () {
@@ -32,5 +32,6 @@ public class PitFluidControl : MonoBehaviour {
     
     public void Set(float fraction) {
         CurrentFraction = Mathf.Clamp(fraction, 0, 1);
+        Debug.Log(fraction);
     }
 }
