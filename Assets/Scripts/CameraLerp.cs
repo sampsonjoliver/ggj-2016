@@ -36,6 +36,7 @@ public class CameraLerp : MonoBehaviour {
            if(TargetRotation >= 0) // because fuck
                 transform.localRotation = Quaternion.AngleAxis(Mathf.Lerp(oldRotation, TargetRotation, elapsedTime / time), Vector3.up);
            camera.localPosition = Vector3.Lerp(Vector3.forward * oldDepth, Vector3.forward * TargetDepth, elapsedTime / time);
+           cameraRig.localPosition = Vector3.Lerp(cameraRig.localPosition, Vector3.zero, elapsedTime / time);
            cameraRig.localRotation = Quaternion.AngleAxis(Mathf.Lerp(oldAngle, TargetAngle, elapsedTime / time), Vector3.right);
            if(elapsedTime > time) {
                enabled = false;

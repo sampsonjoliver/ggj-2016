@@ -18,9 +18,13 @@ public class ScoreController : MonoBehaviour {
     
     public void Init(int numPlebs, bool[] players, Color[] playerColors) {
         int activeCount = 0;
-        for(int i = 0; i < players.Length; ++i)
-            activeCount++;       
-        winningScore = Mathf.Floor(numPlebs / activeCount);
+        for(int i = 0; i < players.Length; ++i) {
+            if(players[i])
+                activeCount++;     
+        }
+        Debug.Log(numPlebs + " / " + activeCount);
+        winningScore = Mathf.Ceil(numPlebs / (float)activeCount);
+        Debug.Log(winningScore);
         playerScores = new float[players.Length];
         this.playerColors = playerColors;
         
@@ -30,6 +34,7 @@ public class ScoreController : MonoBehaviour {
                 playerScoreUIElements[i].gameObject.SetActive(true);
                 playerScoreUIElements[i].maxValue = winningScore;
                 playerScores[i] = 0f;
+                playerScoreUIFillImages[i].color = playerColors[i];
             }
        }
     }
@@ -38,7 +43,7 @@ public class ScoreController : MonoBehaviour {
 	void Update () {
 	   for (int i = 0; i < playerScores.Length; ++i) {
            playerScoreUIElements[i].value = playerScores[i];
-           playerScoreUIFillImages[i].color = Color.Lerp(Color.white, playerColors[i], winningScore / playerScores[i]);
+           //playerScoreUIFillImages[i].color = Color.Lerp(Color.white, playerColors[i], winningScore / playerScores[i]);
        }
 	}
     
@@ -53,8 +58,9 @@ public class ScoreController : MonoBehaviour {
     }
     
     private void UpdatePitFluid() {
-        float maxFraction = float.MinValue;
+        float maxFraction = 0;
         for (int i = 0; i < playerScores.Length; ++i) {
+            Debug.Log("Fraction " + i + ": " + playerScores[i] + " / " + winningScore);
             maxFraction = Mathf.Max(maxFraction, playerScores[i] / winningScore);
         }
         pitFluid.Set(maxFraction);

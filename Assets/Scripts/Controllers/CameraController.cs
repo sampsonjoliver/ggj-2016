@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class CameraController : MonoBehaviour
 {
     public float DampingTime = 0.2f;
-    public float EdgeBuffer = 4f;           
+    public float EdgeBuffer = 15f;           
     public float MinCamDepth = 8f;
     public float MaxCamDepth = 60f;
        
@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
         targetRect = FindTargetRect();
         // project to account for rotation of camera
         projectedRectDims = new Vector2(targetRect.width, targetRect.height);
-        projectedRectDims.y *= Mathf.Sin(transform.localEulerAngles.x * Mathf.Deg2Rad);
+        //projectedRectDims.y *= Mathf.Sin(transform.localEulerAngles.x * Mathf.Deg2Rad);
         Move();
         
         //Zoom();
@@ -65,18 +65,19 @@ public class CameraController : MonoBehaviour
     }
     private void Move() {
         Vector3 pos = targetRect.center;
-        //pos.z = pos.y - 0.5f * (targetRect.height - projectedRectDims.y);
+        pos.z = pos.y - 0.5f * (targetRect.height - projectedRectDims.y);
         pos.y = 0;
-        transform.localPosition = Vector3.SmoothDamp(transform.position, pos, ref moveVelocity, DampingTime);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, pos, ref moveVelocity, DampingTime);
     }
     
     private void AngleZoom() {
         float depth = 0;
+        float requiredAngle = cam.fieldOfView * 0.5f - EdgeBuffer;
         for (int i = 0; i < cameraTargets.Count; i++) {
-            if (cameraTargets[i].gameObject.activeSelf && cameraTargets[i].transform.position.y > 0) {
+            if (cameraTargets[i].gameObject.activeSelf && cameraTargets[i].transform.position.y >= 0) {
                 float focusTargetDist = Vector3.Distance(cameraTargets[i].transform.position, transform.position);
-                float targetAngle = (180 - transform.localEulerAngles.x) * Mathf.Deg2Rad;
-                float d = (focusTargetDist * Mathf.Sin(targetAngle)) / Mathf.Sin(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+                float targetAngle = (180 - (transform.localEulerAngles.x + requiredAngle)) * Mathf.Deg2Rad;
+                float d = (focusTargetDist * Mathf.Sin(targetAngle)) / Mathf.Sin(requiredAngle * Mathf.Deg2Rad);
                 depth = Mathf.Max(depth, d);
             }
         }
@@ -86,5 +87,11 @@ public class CameraController : MonoBehaviour
         Vector3 pos = cam.transform.localPosition;
         pos.z = Mathf.SmoothDamp(pos.z, -depth, ref zoomSpeed, DampingTime);
         cam.transform.localPosition = pos;
+    }
+    
+    public void Restart() {
+        enabled = true;
+        Move();
+        AngleZoom();
     }
 }

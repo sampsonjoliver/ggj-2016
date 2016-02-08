@@ -16,6 +16,8 @@ public class PlebMovement : ActorMovement {
     private float elapsedTime;
     private float audioTime = -1f;
     
+    private bool wanderingLeft = true;
+    
     public ActorAudioHandler audioHandler;
     public List<AudioClip> ouchClips;
     
@@ -25,6 +27,7 @@ public class PlebMovement : ActorMovement {
 	   charController = GetComponent<CharacterController>();
        animator = GetComponent<Animator>();
        rigidBody = GetComponent<Rigidbody>();
+       wanderingLeft = Random.value > 0.5f;
 	}
 	
     void FixedUpdate() {
@@ -55,8 +58,15 @@ public class PlebMovement : ActorMovement {
                 MoveToTarget(plebConversion.conversionTarget.gameObject.transform.position);
             }
             else {
-                // wander
+                // stop walking animation if playing
                 animator.SetBool(AnimatorProps.IS_FOLLOWING, false);
+                // change wander direction with very small chance (~1% == ~1.5s or so)
+                if(Random.value < 0.01f)
+                    wanderingLeft = !wanderingLeft;
+                // wander, turning 5% towards left/right
+                Vector3 move = Vector3.Slerp(transform.forward, (wanderingLeft ? -transform.right : transform.right), 0.05f) * Time.deltaTime;
+                transform.LookAt(transform.position + move.normalized);
+                charController.Move(move);
             }
         }
 	}

@@ -42,15 +42,18 @@ public class GameController : MonoBehaviour {
         cameraController = GetComponentInChildren<CameraController>();
         cameraRotateController = GetComponentInChildren<Rotate>();
         RoundStarting();
-
-        InitPlayers();
 	}
 
 	// Update is called once per frame
 	void Update () {
         if (currentGameState == GameState.STARTING) {
             CheckEnabledPlayers();
-            if (Input.GetButtonDown("Submit")) {
+            int activeCount = 0;
+            for(int i = 0; i < enabledPlayers.Length; ++i) {
+                if(enabledPlayers[i])
+                    activeCount++;     
+            }
+            if (Input.GetButtonDown("Submit") && activeCount > 0) {
                 RoundPlaying();
             }
         } else if (currentGameState == GameState.PLAYING) {
@@ -94,7 +97,7 @@ public class GameController : MonoBehaviour {
         SetCameraOrbit(false);
 
         // disable all indicators
-        for(int i = 0; i < playerTargets.Count; ++i) {
+        for(int i = 0; i < playerIndicators.Count; ++i) {
             playerIndicators[i].gameObject.SetActive(false);
             playerIndicators[i].Set(false);
         }
@@ -110,10 +113,14 @@ public class GameController : MonoBehaviour {
         currentGameState = GameState.ENDING;
         SetCameraOrbit(true);
         pitLight.color = playerColors[winningPlayer];
+        // disable player movement controllers
+        foreach (GameObject target in playerTargets) {
+            target.GetComponent<PlayerMovement>().enabled = false;
+            target.GetComponent<PlayerPush>().enabled = false;
+        }
     }
 
     private void SetupScoreController() {
-
         scoreController = GetComponent<ScoreController>();
         scoreController.Init(plebCount, enabledPlayers, playerColors);
     }
@@ -147,10 +154,9 @@ public class GameController : MonoBehaviour {
         }
         else {
             lerp.TargetAngle = 60;
-            lerp.TargetDepth = -14;
             lerp.TargetCenter = Vector3.zero;
             lerp.TargetRotation = 0;
-            onFinish = () => cameraController.enabled = true;
+            onFinish = () => cameraController.Restart();
         }
         lerp.StartLerp(0.75f, onFinish);
     }
@@ -165,6 +171,8 @@ public class GameController : MonoBehaviour {
         foreach (GameObject target in playerTargets) {
             camTargets.Add(target.transform);
         }
+        // add game controller transform (basically the centre of the pit)
+        camTargets.Add(transform);
         cameraController.cameraTargets = camTargets;
         SetCameraOrbit(false);
     }
