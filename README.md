@@ -1,4 +1,4 @@
-# Global Game Jam, 201+
+# Global Game Jam, 2016
 
 Result of the 48 hour Global Game Jam, 2016, following the jam theme "Ritual". See the game page listing: http://globalgamejam.org/2016/games/gorge-souls
 
